@@ -1,9 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
 import { toggleDrawer, setDrawer } from './layout.actions';
-import { initialState, LayoutState } from './layout.state';
+import { intialLayoutState } from './layout.state';
 
 export const layoutReducer = createReducer(
-  initialState,
+  intialLayoutState,
   on(toggleDrawer, (state) => ({
     ...state,
     isDrawerOpen: !state.isDrawerOpen,
