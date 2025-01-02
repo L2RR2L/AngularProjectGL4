@@ -8,3 +8,6 @@
   --primary-grey: 0 0% 88%;
   --secondary-grey: 0 0% 96%;
 }
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

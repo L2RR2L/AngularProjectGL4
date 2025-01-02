@@ -5,11 +5,12 @@ import { Store } from '@ngrx/store';
 import { toggleDrawer } from '../../store/layout/layout.actions';
 import { AsyncPipe } from '@angular/common';
 import { StartNavComponent } from './start-nav/start-nav.component';
+import { MiddleNavComponent } from './middle-nav/middle-nav.component';
 
 @Component({
   selector: 'app-top-nav',
   standalone: true,
-  imports: [AsyncPipe, StartNavComponent],
+  imports: [AsyncPipe, StartNavComponent, MiddleNavComponent],
   templateUrl: './top-nav.component.html',
   styleUrl: './top-nav.component.css',
 })

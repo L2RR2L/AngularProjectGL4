@@ -1,0 +1,16 @@
+<div class="flex flex-col h-[100dvh]">
+  <div class="h-16"></div>
+  <aside
+    class="bg-secondaryBackground border-r-2 transition-all duration-300 p-3 grow"
+    [ngClass]="{
+      'w-60': isDrawerOpen$ | async,
+      'w-16': !(isDrawerOpen$ | async),
+    }"
+  >
+    @if(isDrawerOpen$ | async){
+    <h1>Opened</h1>
+    }@else {
+    <h1>Closed</h1>
+    }
+  </aside>
+</div>
