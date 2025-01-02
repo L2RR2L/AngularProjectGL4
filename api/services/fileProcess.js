@@ -93,12 +93,31 @@ const uploadFile = multer({ storage, fileFilter: uploadFilter }).single("file");
 
 const generateThumbnails = async (videoFile, limit) => {
   const videoPath = await getPath({ type: "video", filename: videoFile });
+  console.log(videoPath);
+
   let thumbnailLinks;
   const promise = new Promise((resolve, reject) => {
+    console.log("Generating thumbnails before ffmpeg");
+    console.log(ffmpeg.ffprobe);
+
     ffmpeg(videoPath)
       .on("filenames", function (filenames) {
+        console.log("Will generate " + filenames.join(", "));
+
         thumbnailLinks = filenames.map((filename) => {
           const link = generateLink({ filename, type: "thumbnail" });
+          console.log(link);
+
+          return { filename, link };
+        });
+      })
+      .on("filenames", function (filenames) {
+        console.log("Will generate " + filenames.join(", "));
+
+        thumbnailLinks = filenames.map((filename) => {
+          const link = generateLink({ filename, type: "thumbnail" });
+          console.log(link);
+
           return { filename, link };
         });
       })

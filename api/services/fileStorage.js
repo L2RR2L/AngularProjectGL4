@@ -58,7 +58,11 @@ const saveFile = ({ filePath, filename, mimeType }) => {
     try {
       const drive = await getDrive();
 
+      console.log("Saving file to google drive");
+
       const bucket = await getBucket("youtube");
+      console.log("Bucket: ", bucket);
+
       const file = await drive.files.create({
         resource: {
           name: filename,
@@ -70,6 +74,7 @@ const saveFile = ({ filePath, filename, mimeType }) => {
         },
         fields: "id",
       });
+      console.log("File: ", file);
       resolve(file.data);
     } catch (err) {
       reject(err);

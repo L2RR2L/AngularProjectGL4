@@ -201,7 +201,11 @@ router.get("/subscription", async (req, res) => {
 router.post("/thumbnails", async (req, res) => {
   const { filename } = req.body;
   try {
+    console.log("Generating thumbnails");
+
     const thumbLinks = await fileProcess.generateThumbnails(filename, 3);
+    console.log("Generated thumbnails");
+
     const thumbnails = thumbLinks.map((thumb) => ({
       ...thumb,
       link: thumb.link + "?temporary=true",
