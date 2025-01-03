@@ -3,7 +3,6 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { loadAuthState, loginSuccess, logout } from './auth.actions';
 import { map, mergeMap, catchError } from 'rxjs/operators'; // Added catchError import
-import { environment } from '../../../environments/environment.development';
 import { Channel } from '../../types/channel';
 import { EMPTY } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -22,7 +21,7 @@ export class AuthEffects {
       mergeMap(() => {
         console.log('Effect triggered, making request...');
         return this.http
-          .get<Channel>(`${environment.apiURL}/api/channels/owner`, {
+          .get<Channel>(`/api/channels/owner`, {
             withCredentials: true,
           })
           .pipe(
