@@ -1,0 +1,9 @@
+<div>
+    @if(isAuthenticated$ | async){
+    <app-user-menu></app-user-menu>
+    }
+    @else {
+    <app-sign-in-button></app-sign-in-button>
+    }
+
+</div>
