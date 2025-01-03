@@ -14,6 +14,7 @@ export const authReducer = createReducer(
     ...state,
     channel: null,
     isAuthenticated: false,
+    isLoaded: true,
   })),
   on(loadAuthState, (state) => ({
     ...state,

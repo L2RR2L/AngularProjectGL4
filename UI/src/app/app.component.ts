@@ -6,6 +6,7 @@ import { loadAuthState } from './store/auth/auth.actions';
 import { selectIsLoaded } from './store/auth/auth.selectors';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,7 @@ export class AppComponent implements OnInit {
   isloaded$ = this.store.select(selectIsLoaded);
 
   ngOnInit(): void {
+    initFlowbite();
     this.store.dispatch(loadAuthState());
   }
 }

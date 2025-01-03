@@ -1,35 +1,18 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { environment } from '../../../../environments/environment.development';
-import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs';
-import { AuthService } from '../../../services/auth/auth.service';
-import { Channel } from '../../../types/channel';
+import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectCurrentChannel } from '../../../store/auth/auth.selectors';
+import { selectIsAuthenticated } from '../../../store/auth/auth.selectors';
 import { AsyncPipe } from '@angular/common';
-import { loadAuthState, logout } from '../../../store/auth/auth.actions';
+import { SignInButtonComponent } from './sign-in-button/sign-in-button.component';
+import { UserMenuComponent } from './user-menu/user-menu.component';
 
 @Component({
   selector: 'app-end-nav',
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, SignInButtonComponent, UserMenuComponent],
   templateUrl: './end-nav.component.html',
   styleUrl: './end-nav.component.css',
 })
 export class EndNavComponent {
   store = inject(Store);
-
-  channel$ = this.store.select(selectCurrentChannel);
-
-  isAuthenticated: boolean = false;
-
-  constructor(private authService: AuthService) {}
-
-  login() {
-    this.authService.login();
-  }
-
-  logout() {
-    this.store.dispatch(logout());
-  }
+  isAuthenticated$ = this.store.select(selectIsAuthenticated);
 }

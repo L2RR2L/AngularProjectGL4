@@ -1,8 +1,9 @@
 <div>
-    <button class="btn text-blue-800 border-2 border-solid border-blue-800 p-2 rounded" (click)="login()">
-        SIGN IN
-    </button>
-    <div>
-        {{ (channel$ | async)?.email }}
-    </div>
+    @if(isAuthenticated$ | async){
+    <app-user-menu></app-user-menu>
+    }
+    @else {
+    <app-sign-in-button></app-sign-in-button>
+    }
+
 </div>
