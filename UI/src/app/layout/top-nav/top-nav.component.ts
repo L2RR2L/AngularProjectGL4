@@ -6,11 +6,12 @@ import { toggleDrawer } from '../../store/layout/layout.actions';
 import { AsyncPipe } from '@angular/common';
 import { StartNavComponent } from './start-nav/start-nav.component';
 import { MiddleNavComponent } from './middle-nav/middle-nav.component';
+import { EndNavComponent } from './end-nav/end-nav.component';
 
 @Component({
   selector: 'app-top-nav',
   standalone: true,
-  imports: [AsyncPipe, StartNavComponent, MiddleNavComponent],
+  imports: [AsyncPipe, StartNavComponent, MiddleNavComponent, EndNavComponent],
   templateUrl: './top-nav.component.html',
   styleUrl: './top-nav.component.css',
 })

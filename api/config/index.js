@@ -4,8 +4,7 @@ require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 const CLIENT_URL =
   process.env.NODE_ENV === "production"
     ? process.env.REACT_APP_CLIENT_URL
-    : "http://localhost:3000";
-
+    : "http://localhost:4200";
 const PORT = process.env.PORT || process.env.REACT_APP_BACKEND_PORT;
 const BACKEND_URL =
   process.env.NODE_ENV === "production"

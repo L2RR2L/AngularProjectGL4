@@ -7,6 +7,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideStore } from '@ngrx/store';
 import { reducers } from './store/app.state';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,5 +16,6 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideStore(reducers),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+    provideHttpClient(withFetch()),
   ],
 };
