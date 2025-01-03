@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs';
@@ -24,10 +24,6 @@ export class EndNavComponent {
   isAuthenticated: boolean = false;
 
   constructor(private authService: AuthService) {}
-
-  ngOnInit() {
-    this.store.dispatch(loadAuthState());
-  }
 
   login() {
     this.authService.login();

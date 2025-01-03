@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { loginSuccess, logout } from './auth.actions';
+import { loadAuthState, loginSuccess, logout } from './auth.actions';
 import { initialAuthState } from './auth.state';
 
 export const authReducer = createReducer(
@@ -8,10 +8,15 @@ export const authReducer = createReducer(
     ...state,
     channel,
     isAuthenticated: true,
+    isLoaded: true,
   })),
   on(logout, (state) => ({
     ...state,
     channel: null,
     isAuthenticated: false,
+  })),
+  on(loadAuthState, (state) => ({
+    ...state,
+    isLoaded: false,
   }))
 );
