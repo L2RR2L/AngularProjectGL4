@@ -3,8 +3,9 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from '../store/app.state';
 import { isLoading } from '../store/upload/upload.selector';
-import { setLoading, setVideoFile } from '../store/upload/upload.actions';
+import { setLoading, setThumbnails, setVideoFile } from '../store/upload/upload.actions';
 import { AsyncPipe } from '@angular/common';
+import axios from 'axios';
 
 @Component({
   selector: 'app-video-dropzone',
@@ -18,6 +19,11 @@ export class VideoDropzoneComponent {
   dragRejected: WritableSignal<boolean> = signal(false);
   isLoading$: Observable<boolean>;
   @ViewChild('fileInput') fileInput!: ElementRef;
+
+  api = axios.create({
+    withCredentials: true,
+    baseURL: "http://localhost:5000",
+  });
 
   constructor(private store: Store<AppState>) {
     this.isLoading$ = this.store.select(isLoading);
@@ -58,12 +64,32 @@ export class VideoDropzoneComponent {
     return file.type === 'video/mp4' && file.size <= 25 * 1024 * 1024;
   }
 
-  uploadFile(file: File) {
+  async uploadFile(file: File) {
     this.store.dispatch(setLoading({ isLoading: true }));
-    setTimeout(() => {
-      console.log("uploading file");
-      this.store.dispatch(setVideoFile({ filename: file.name }));
+    try {
+      const formData = new FormData();
+      const config = {
+        headers: { "content-type": "multipart/form-data" },
+      };
+      formData.append("file", file);
+
+      const response = await this.api.post<{ filename: string }>("/api/videos", formData, config);
+      const fileName = response.data.filename;
+
+      this.store.dispatch(setVideoFile({ filename: fileName }));
+
+      const thumbnails = await this.api.post<string[]>("/api/videos/thumbnails", {
+        filename: fileName,
+      });
+
+      this.store.dispatch(setThumbnails({ thumbnails: thumbnails.data }));
+    }
+    catch (e) {
+      this.store.dispatch(setVideoFile({ filename: null }));
+      this.store.dispatch(setThumbnails({ thumbnails: null }));
+    }
+    finally {
       this.store.dispatch(setLoading({ isLoading: false }));
-    }, 2000);
+    }
   }
 }

@@ -64,10 +64,8 @@
         </button>
       </div>
     </div>
-    } @if (isUploadModalOpen()) {
-    <app-upload-modal
-      (uploadModalToggleEvent)="toggleUploadModal()"
-    ></app-upload-modal>
+    } @if (isUploadModalOpen$ | async) {
+    <app-upload-modal></app-upload-modal>
     }
   </div>
 

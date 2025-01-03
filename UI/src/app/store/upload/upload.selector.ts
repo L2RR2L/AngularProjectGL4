@@ -6,7 +6,7 @@ export const selectUploadState = (state: AppState) => state.upload;
 
 export const thumbnail = createSelector(
     selectUploadState,
-    (state: UploadState) => state.thumbnailFilename
+    (state: UploadState) => state.thumbnailFileName
 );
 
 export const thumbnails = createSelector(
@@ -22,4 +22,19 @@ export const filename = createSelector(
 export const isLoading = createSelector(
     selectUploadState,
     (state: UploadState) => state.isLoading
+);
+
+export const isOpen = createSelector(
+    selectUploadState,
+    (state: UploadState) => state.isOpen
+);
+
+export const details = createSelector(
+    selectUploadState,
+    (state: UploadState) => state.details
+);
+
+export const visibility = createSelector(
+    selectUploadState,
+    (state: UploadState) => state.visibility
 );

@@ -1,5 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 
+export const setOpen = createAction(
+    '[Upload] Set Open',
+    props<{ isOpen: boolean }>()
+);
+
 export const setLoading = createAction(
     '[Upload] Set Loading',
     props<{ isLoading: boolean }>()

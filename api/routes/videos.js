@@ -34,6 +34,7 @@ router.post("/", (req, res) => {
 // Save video
 router.post("/upload", async (req, res) => {
   const uploadInfo = req.body;
+  console.log("uploaded info: ", uploadInfo);
   try {
     const { filename: videoFilename, thumbnailFilename } = uploadInfo;
     const { id: videoStoreId } = await fileProcess.storeFile({
@@ -202,9 +203,9 @@ router.post("/thumbnails", async (req, res) => {
   const { filename } = req.body;
   try {
     console.log("Generating thumbnails");
-
+    console.log("wanted filename: ", filename);
     const thumbLinks = await fileProcess.generateThumbnails(filename, 3);
-    console.log("Generated thumbnails");
+    console.log("Generated thumbnails a");
 
     const thumbnails = thumbLinks.map((thumb) => ({
       ...thumb,

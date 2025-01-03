@@ -27,7 +27,11 @@ app.use(morgan("dev"));
 //Use Middlewares
 app.use(
   cors({
-    origin: [config.CLIENT_URL, "http://localhost:3000"],
+    origin: [
+      config.CLIENT_URL,
+      "http://localhost:3000",
+      "http://localhost:4200",
+    ],
     credentials: true,
   })
 );

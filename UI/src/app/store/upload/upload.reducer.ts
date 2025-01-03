@@ -1,9 +1,14 @@
 import { createReducer, on } from '@ngrx/store';
 import { initialUploadState } from './upload.state';
-import { resetUpload, setDetails, setLoading, setThumbnail, setThumbnails, setVideoFile, setVisibility } from './upload.actions';
+import { resetUpload, setDetails, setLoading, setOpen, setThumbnail, setThumbnails, setVideoFile, setVisibility } from './upload.actions';
 
 export const uploadReducer = createReducer(
     initialUploadState,
+    on(setOpen, (state, { isOpen }) => ({
+        ...state,
+        isOpen,
+    })),
+
     on(setLoading, (state, { isLoading }) => ({
         ...state,
         isLoading,
