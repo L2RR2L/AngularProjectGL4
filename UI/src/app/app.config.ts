@@ -8,6 +8,8 @@ import { provideStore } from '@ngrx/store';
 import { reducers } from './store/app.state';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { AuthEffects } from './store/auth/auth.effects';
+import { provideEffects } from '@ngrx/effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,5 +19,6 @@ export const appConfig: ApplicationConfig = {
     provideStore(reducers),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideHttpClient(withFetch()),
+    provideEffects([AuthEffects]),
   ],
 };

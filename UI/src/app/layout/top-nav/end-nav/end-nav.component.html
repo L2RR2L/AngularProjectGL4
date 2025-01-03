@@ -3,6 +3,6 @@
         SIGN IN
     </button>
     <div>
-        {{channel?.email}}
+        {{ (channel$ | async)?.email }}
     </div>
 </div>
