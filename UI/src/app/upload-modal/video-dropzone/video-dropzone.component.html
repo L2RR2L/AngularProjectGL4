@@ -1,0 +1,61 @@
+@if(!(isLoading$ | async)){
+<div
+  class="flex flex-col items-center p-5 border-2 border-dashed rounded-lg transition-colors duration-200"
+  [class.border-green-400]="dragAccepted()"
+  [class.border-red-400]="dragRejected()"
+  [class.border-gray-200]="!dragAccepted() && !dragRejected()"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+  (drop)="onDrop($event)"
+>
+  <input
+    type="file"
+    accept="video/mp4"
+    class="hidden"
+    #fileInput
+    (change)="onFileSelected($event)"
+  />
+
+  <!-- Upload Button -->
+  <button
+    class="w-36 h-36 bg-gray-200 text-gray-500 rounded-full flex items-center justify-center shadow-sm mb-4"
+    (click)="fileInput.click()"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="w-12 h-12"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="2"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M16 16v4H8v-4H5l7-7 7 7h-3z"
+      />
+    </svg>
+  </button>
+
+  <!-- Text Content -->
+  <p class="text-lg text-gray-700">
+    Drag and drop a <strong class="font-semibold">.mp4</strong> file to upload
+  </p>
+  <p class="text-sm text-gray-500 mb-2">
+    Your videos will be private until you publish them.
+  </p>
+  <p class="text-xs text-gray-400 italic mb-4">
+    * Video Uploads are limited to 25 MB.
+  </p>
+
+  <!-- Select File Button -->
+  <button
+    class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+    (click)="fileInput.click()"
+  >
+    Select File
+  </button>
+</div>
+} @else {
+<div>Loading...</div>
+}

@@ -1,0 +1,52 @@
+<div
+  class="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center"
+  role="dialog"
+  aria-labelledby="customized-dialog-title"
+  (click)="closeModelOnOutsideClick($event)"
+>
+  <div class="bg-white rounded-lg shadow-lg w-full max-w-md">
+    <!-- Dialog Header -->
+    <div
+      class="flex justify-between items-center p-4 border-b dark:border-gray-700"
+    >
+      <h2
+        id="customized-dialog-title"
+        class="text-lg font-semibold text-black dark:text-black"
+      >
+        Upload Video
+      </h2>
+      <button
+        class="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+        aria-label="close"
+        (click)="toggleUploadModal()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Dialog Content -->
+    <div class="p-6">
+      <!-- Content conditionally rendered -->
+      <div id="content">
+        @if (!(uploadFilename$ | async)) {
+        <app-video-dropzone></app-video-dropzone>
+        }@else {
+        <app-upload-form></app-upload-form>
+        }
+      </div>
+    </div>
+  </div>
+</div>

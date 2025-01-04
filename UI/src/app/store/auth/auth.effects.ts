@@ -13,7 +13,7 @@ export class AuthEffects {
   http = inject(HttpClient);
   store = inject(Store);
 
-  constructor() {}
+  constructor() { }
 
   login$ = createEffect(() =>
     this.actions$.pipe(
@@ -21,9 +21,7 @@ export class AuthEffects {
       mergeMap(() => {
         console.log('Effect triggered, making request...');
         return this.http
-          .get<Channel>(`/api/channels/owner`, {
-            withCredentials: true,
-          })
+          .get<Channel>(`/api/channels/owner`)
           .pipe(
             map((channel) => {
               console.log('logged in successfully');

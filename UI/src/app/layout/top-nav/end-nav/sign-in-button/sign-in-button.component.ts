@@ -5,7 +5,7 @@ import { AsyncPipe } from '@angular/common';
 @Component({
   selector: 'app-sign-in-button',
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [],
   templateUrl: './sign-in-button.component.html',
   styleUrl: './sign-in-button.component.css',
 })
