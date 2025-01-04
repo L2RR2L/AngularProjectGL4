@@ -1,28 +1,34 @@
-import { Component, HostListener, signal, WritableSignal } from '@angular/core';
+import { Component, HostListener, inject, signal, WritableSignal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../store/app.state';
-import { Observable, take } from 'rxjs';
-import { isAuthenticated } from '../../../store/channel/channel.selector';
+import { combineLatest, Observable, take, tap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { UploadModalComponent } from "../../../upload-modal/upload-modal.component";
 import { isOpen } from '../../../store/upload/upload.selector';
 import { setOpen } from '../../../store/upload/upload.actions';
+import { selectIsAuthenticated } from '../../../store/auth/auth.selectors';
+import { UserMenuComponent } from './user-menu/user-menu.component';
+import { SignInButtonComponent } from './sign-in-button/sign-in-button.component';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-end-nav',
   standalone: true,
-  imports: [AsyncPipe, UploadModalComponent],
+  imports: [AsyncPipe, UploadModalComponent, SignInButtonComponent, UserMenuComponent],
   templateUrl: './end-nav.component.html',
   styleUrl: './end-nav.component.css'
 })
 export class EndNavComponent {
-  isAuth$: Observable<boolean>;
-  isUploadModalOpen$: Observable<boolean>;
   isDropDownOpen: WritableSignal<boolean> = signal(false);
 
+  isUploadModalOpen$: Observable<boolean>;
+
+  authService = inject(AuthService);
+  isAuthenticated$: Observable<boolean>;
+
   constructor(private store: Store<AppState>) {
-    this.isAuth$ = this.store.select(isAuthenticated);
     this.isUploadModalOpen$ = this.store.select(isOpen);
+    this.isAuthenticated$ = this.store.select(selectIsAuthenticated);
   }
 
   toggleDropDown() {
@@ -30,11 +36,19 @@ export class EndNavComponent {
   }
 
   toggleUploadModal() {
-    this.isUploadModalOpen$.pipe(
-      take(1)
-    ).subscribe(currentValue => {
-      this.store.dispatch(setOpen({ isOpen: !currentValue }));
-    });
+    combineLatest([
+      this.isUploadModalOpen$,
+      this.isAuthenticated$
+    ]).pipe(
+      take(1),
+      tap(([isUploadModalOpen, isAuthenticated]) => {
+        if (isAuthenticated) {
+          this.store.dispatch(setOpen({ isOpen: !isUploadModalOpen }));
+        } else {
+          this.authService.login();
+        }
+      })
+    ).subscribe();
   }
 
   @HostListener('document:click', ['$event'])

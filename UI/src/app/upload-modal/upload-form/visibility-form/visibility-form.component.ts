@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../store/app.state';
 import { TitleCasePipe } from '@angular/common';
-import { setVisibility } from '../../store/upload/upload.actions';
+import { AppState } from '../../../store/app.state';
+import { setVisibility } from '../../../store/upload/upload.actions';
+import { VisibilityService } from '../../../services/visibility/visibility.service';
 
 @Component({
   selector: 'app-visibility-form',
@@ -15,9 +16,14 @@ import { setVisibility } from '../../store/upload/upload.actions';
 export class VisibilityFormComponent {
   visibilityForm: FormGroup;
   selectedThumbnail: string | null = null;
-  visibility = ["public", "unlisted", "private"];
 
-  constructor(private store: Store<AppState>, private fb: FormBuilder) {
+  store = inject(Store<AppState>);
+  fb = inject(FormBuilder);
+  visibilityService = inject(VisibilityService);
+
+  visibility = this.visibilityService.getVisibilityOptions();
+
+  constructor() {
     this.visibilityForm = this.fb.group({
       visibility: ['', [Validators.required]]
     });
@@ -33,7 +39,7 @@ export class VisibilityFormComponent {
       control?.markAsTouched();
     });
     if (this.visibilityForm.valid) {
-      this.store.dispatch(setVisibility({ visibility: this.visibility.indexOf(this.visibilityForm.value.visibility) }));
+      this.store.dispatch(setVisibility({ visibility: this.visibilityService.getVisibilityIndex(this.visibilityForm.value.visibility) }));
     }
     return this.visibilityForm.valid;
   }

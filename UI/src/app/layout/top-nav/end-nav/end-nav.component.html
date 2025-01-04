@@ -68,37 +68,9 @@
     <app-upload-modal></app-upload-modal>
     }
   </div>
-
-  <!-- Hidden Elements for Larger Screens -->
-  <div class="hidden sm:flex items-center space-x-4">
-    <button disabled class="p-2 rounded bg-gray-200 cursor-not-allowed">
-      <!-- <mat-icon>apps</mat-icon> -->
-    </button>
-
-    <!-- Settings Icon (Only when not authenticated) -->
-    @if (!(isAuth$ | async)) {
-    <button class="p-2 rounded hover:bg-gray-200 focus:outline-none">
-      <!-- <mat-icon>settings</mat-icon> -->
-    </button>
-    }
-  </div>
-
-  <!-- Notifications Icon (Only when authenticated) -->
-  @if (isAuth$ | async) {
-  <button class="p-2 rounded hover:bg-gray-200 focus:outline-none">
-    <!-- <mat-icon>notifications</mat-icon> -->
-  </button>
-  }
-
-  <!-- User Menu Button (Only when authenticated) -->
-  @if (isAuth$) {
-  <button class="p-2 rounded hover:bg-gray-200 focus:outline-none">
-    <!-- <app-nav-user-menu-btn></app-nav-user-menu-btn> -->
-  </button>
-  }
-
-  <!-- SignIn Button (Only when not authenticated) -->
-  @if (!(isAuth$ | async)) {
-  <!-- <app-sign-in-btn [size]="'medium'"></app-sign-in-btn> -->
+  @if(isAuthenticated$ | async){
+  <app-user-menu></app-user-menu>
+  } @else {
+  <app-sign-in-button></app-sign-in-button>
   }
 </div>

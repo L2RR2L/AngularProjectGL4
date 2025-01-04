@@ -1,23 +1,22 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs';
-import { thumbnails } from '../../store/upload/upload.selector';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../store/app.state';
-import { AsyncPipe } from '@angular/common';
-import { Form, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { setThumbnail } from '../../store/upload/upload.actions';
-
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from "@angular/forms";
+import { Store } from "@ngrx/store";
+import { Observable } from "rxjs";
+import { AsyncPipe } from "@angular/common";
+import { Component } from "@angular/core";
+import { AppState } from "../../../store/app.state";
+import { setThumbnail } from "../../../store/upload/upload.actions";
+import { thumbnails } from "../../../store/upload/upload.selector";
+import { Thumbnail } from "../../../types/thumbnail";
 @Component({
   selector: 'app-image-picker',
   standalone: true,
   imports: [AsyncPipe, ReactiveFormsModule],
   templateUrl: './image-picker.component.html',
-  styleUrl: './image-picker.component.css'
 })
 export class ImagePickerComponent {
-  thumbnails$: Observable<{ thumbnails: Array<{ filename: string, link: string }> }>;
+  thumbnails$: Observable<Array<Thumbnail> | null>;
+
   thumbnailForm: FormGroup;
-  selectedThumbnail: string | null = null;
 
   constructor(private store: Store<AppState>, private fb: FormBuilder) {
     this.thumbnails$ = this.store.select(thumbnails);
@@ -35,9 +34,10 @@ export class ImagePickerComponent {
       const control = this.thumbnailForm.get(key);
       control?.markAsTouched();
     });
+
     if (this.thumbnailForm.valid) {
       const thumbnailFileName = this.thumbnailForm.value.thumbnail;
-      this.store.dispatch(setThumbnail({ thumbnailFileName: thumbnailFileName }));
+      this.store.dispatch(setThumbnail({ thumbnailFileName }));
     }
     return this.thumbnailForm.valid;
   }

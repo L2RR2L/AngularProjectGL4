@@ -1,9 +1,10 @@
 import { TitleCasePipe } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { setDetails } from '../../store/upload/upload.actions';
-import { AppState } from '../../store/app.state';
 import { Store } from '@ngrx/store';
+import { AppState } from '../../../store/app.state';
+import { setDetails } from '../../../store/upload/upload.actions';
+import { CategoryService } from '../../../services/category/category.service';
 
 @Component({
   selector: 'app-details-form',
@@ -14,9 +15,12 @@ import { Store } from '@ngrx/store';
 })
 export class DetailsFormComponent implements OnInit {
   detailsForm!: FormGroup;
-  categories = ['music', 'sports', 'gaming', 'movies', 'news', 'live'];
 
-  constructor(private store: Store<AppState>, private fb: FormBuilder) { }
+  cateogoryService = inject(CategoryService);
+  store = inject(Store<AppState>);
+  fb = inject(FormBuilder);
+
+  categories = this.cateogoryService.getCategories();
 
   ngOnInit(): void {
     this.detailsForm = this.fb.group({
@@ -53,7 +57,7 @@ export class DetailsFormComponent implements OnInit {
     if (this.detailsForm.valid) {
       const title = this.detailsForm.get('title')?.value;
       const description = this.detailsForm.get('description')?.value;
-      const category = this.categories.indexOf(this.detailsForm.get('category')?.value);
+      const category = this.cateogoryService.getCategoryIndex(this.detailsForm.get('category')?.value);
       this.store.dispatch(setDetails({ details: { title, description, category } }));
     }
     return this.detailsForm.valid;

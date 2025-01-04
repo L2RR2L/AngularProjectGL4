@@ -1,4 +1,6 @@
 import { createAction, props } from '@ngrx/store';
+import { Thumbnail } from '../../types/thumbnail';
+import { Details } from '../../types/details';
 
 export const setOpen = createAction(
     '[Upload] Set Open',
@@ -17,7 +19,7 @@ export const setVideoFile = createAction(
 
 export const setThumbnails = createAction(
     '[Channel] Set Thumbnails',
-    props<{ thumbnails: any | null }>()
+    props<{ thumbnails: Array<Thumbnail> | null }>()
 );
 
 export const setThumbnail = createAction(
@@ -27,12 +29,12 @@ export const setThumbnail = createAction(
 
 export const setDetails = createAction(
     '[Channel] Set Details',
-    props<{ details: any | null }>()
+    props<{ details: Details | null }>()
 );
 
 export const setVisibility = createAction(
     '[Channel] Set Visibility',
-    props<{ visibility: any | null }>()
+    props<{ visibility: number | null }>()
 );
 
 export const resetUpload = createAction('[Channel] Reset Upload');

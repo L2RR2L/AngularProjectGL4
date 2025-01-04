@@ -10,7 +10,7 @@ describe('EndNavComponent', () => {
     await TestBed.configureTestingModule({
       imports: [EndNavComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(EndNavComponent);
     component = fixture.componentInstance;
