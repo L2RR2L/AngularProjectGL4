@@ -14,12 +14,11 @@ import { FlowbiteService } from './services/flow-bite/flow-bite.service';
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet,
     LayoutComponent,
     AsyncPipe,
     CommonModule,
     SpinnerComponent,
-    HomePageComponent,
+    HomePageComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

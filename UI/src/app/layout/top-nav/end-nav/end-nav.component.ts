@@ -3,13 +3,13 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../store/app.state';
 import { combineLatest, Observable, take, tap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { UploadModalComponent } from "../../../upload-modal/upload-modal.component";
 import { isOpen } from '../../../store/upload/upload.selector';
 import { setOpen } from '../../../store/upload/upload.actions';
 import { selectIsAuthenticated } from '../../../store/auth/auth.selectors';
 import { UserMenuComponent } from './user-menu/user-menu.component';
 import { SignInButtonComponent } from './sign-in-button/sign-in-button.component';
 import { AuthService } from '../../../services/auth/auth.service';
+import { UploadModalComponent } from './upload-modal/upload-modal.component';
 
 @Component({
   selector: 'app-end-nav',

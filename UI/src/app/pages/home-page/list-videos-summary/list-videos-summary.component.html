@@ -1,16 +1,16 @@
 <div class="flex flex-row flex-wrap">
-    @if(isLoading()){
-
-    @for(i of skeletonArray;track $index){
-    <app-video-summary-card-skeleton />
+    @if (isLoading()) {
+      @for (item of skeletonArray; track $index) {
+        <app-video-summary-card-skeleton />
+      }
+    } @else {
+      @for (video of videos(); track video.id) {
+        <app-video-summary-card [video]="video" />
+      }
+      @empty {
+        <div class="w-full flex items-center justify-center">
+          <p class="text-gray-400">No videos found</p>
+        </div>
+      }
     }
-
-    } @else { @for(video of videos(); track $index){ <app-video-summary-card [video]="video">
-    </app-video-summary-card>
-    } @empty {
-    <div class="w-full flex items-center justify-center">
-        <p class="text-gray-400">No videos found</p>
-    </div>
-    }
-    }
-</div>
+  </div>

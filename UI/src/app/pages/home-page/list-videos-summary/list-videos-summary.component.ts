@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
 import { Video } from '../../../types/video';
 import { VideoSummaryCardComponent } from '../../../components/video-summary-card/video-summary-card.component';
 import { VideoSummaryCardSkeletonComponent } from '../../../components/video-summary-card-skeleton/video-summary-card-skeleton.component';

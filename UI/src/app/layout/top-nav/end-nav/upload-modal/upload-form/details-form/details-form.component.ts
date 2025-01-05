@@ -2,9 +2,9 @@ import { TitleCasePipe } from '@angular/common';
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../store/app.state';
-import { setDetails } from '../../../store/upload/upload.actions';
-import { CategoryService } from '../../../services/category/category.service';
+import { CategoryService } from '../../../../../../services/category/category.service';
+import { AppState } from '../../../../../../store/app.state';
+import { setDetails } from '../../../../../../store/upload/upload.actions';
 
 @Component({
   selector: 'app-details-form',

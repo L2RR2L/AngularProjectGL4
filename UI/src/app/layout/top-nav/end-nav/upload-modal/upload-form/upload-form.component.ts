@@ -6,11 +6,11 @@ import { VisibilityFormComponent } from "./visibility-form/visibility-form.compo
 import { catchError, combineLatest, EMPTY, forkJoin, map, mergeMap, switchMap, take, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
-import { AppState } from '../../store/app.state';
-import { selectCurrentChannel } from '../../store/auth/auth.selectors';
-import { resetUpload, setLoading } from '../../store/upload/upload.actions';
-import { details, thumbnail, visibility, filename } from '../../store/upload/upload.selector';
-import { UploadState, initialUploadState } from '../../store/upload/upload.state';
+import { AppState } from '../../../../../store/app.state';
+import { selectCurrentChannel } from '../../../../../store/auth/auth.selectors';
+import { resetUpload, setLoading } from '../../../../../store/upload/upload.actions';
+import { details, thumbnail, visibility, filename } from '../../../../../store/upload/upload.selector';
+import { UploadState, initialUploadState } from '../../../../../store/upload/upload.state';
 
 @Component({
   selector: 'app-upload-form',
