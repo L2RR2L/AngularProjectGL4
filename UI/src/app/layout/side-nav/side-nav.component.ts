@@ -1,9 +1,10 @@
-import { Component, OnInit, Signal, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { toggleDrawer } from '../../store/layout/layout.actions';
 import { AppState } from '../../store/app.state';
 import { AsyncPipe, NgClass } from '@angular/common';
+import { SideNavService } from '../../services/side-nav/side-nav.service';
+import { SideNavOption } from '../../types/side-nav-option';
 
 @Component({
   selector: 'app-side-nav',
@@ -14,10 +15,22 @@ import { AsyncPipe, NgClass } from '@angular/common';
 })
 export class SideNavComponent {
   isDrawerOpen$: Observable<boolean>;
+  sideNavOptions: Array<SideNavOption>;
+  activeOption: string;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private sideNavService: SideNavService) {
     this.isDrawerOpen$ = this.store.select(
       (state) => state.layout.isDrawerOpen
     );
+    this.sideNavOptions = this.sideNavService.getSideNavOptions();
+    this.activeOption = this.sideNavService.getActiveOption();
+  }
+
+  setActiveOption(name: string) {
+    this.activeOption = name;
+  }
+
+  isOptionActive(name: string): boolean {
+    return this.activeOption === name;
   }
 }

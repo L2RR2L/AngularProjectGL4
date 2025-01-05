@@ -3,10 +3,10 @@ import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { AsyncPipe } from "@angular/common";
 import { Component } from "@angular/core";
-import { AppState } from "../../../store/app.state";
-import { setThumbnail } from "../../../store/upload/upload.actions";
-import { thumbnails } from "../../../store/upload/upload.selector";
-import { Thumbnail } from "../../../types/thumbnail";
+import { AppState } from "../../../../../../store/app.state";
+import { setThumbnail } from "../../../../../../store/upload/upload.actions";
+import { thumbnails } from "../../../../../../store/upload/upload.selector";
+import { Thumbnail } from "../../../../../../types/thumbnail";
 @Component({
   selector: 'app-image-picker',
   standalone: true,

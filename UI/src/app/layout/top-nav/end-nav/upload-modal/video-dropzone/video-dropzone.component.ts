@@ -1,12 +1,12 @@
 import { Component, ElementRef, inject, signal, ViewChild, WritableSignal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { catchError, EMPTY, finalize, map, Observable, switchMap, tap } from 'rxjs';
-import { AppState } from '../../store/app.state';
-import { isLoading, thumbnails } from '../../store/upload/upload.selector';
-import { setLoading, setThumbnails, setVideoFile } from '../../store/upload/upload.actions';
 import { AsyncPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Thumbnail } from '../../types/thumbnail';
+import { AppState } from '../../../../../store/app.state';
+import { setLoading, setVideoFile, setThumbnails } from '../../../../../store/upload/upload.actions';
+import { isLoading } from '../../../../../store/upload/upload.selector';
+import { Thumbnail } from '../../../../../types/thumbnail';
 
 @Component({
   selector: 'app-video-dropzone',

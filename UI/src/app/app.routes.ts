@@ -1,13 +1,14 @@
 import { Routes } from '@angular/router';
 import { WatchComponent } from './watch/watch.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
 
 export const routes: Routes = [
-  //add /watch route
-  
-
+  {
+    path: '',
+    component: HomePageComponent,
+  },
   {
     path: 'watch',
-
     component: WatchComponent,
   },
 ];

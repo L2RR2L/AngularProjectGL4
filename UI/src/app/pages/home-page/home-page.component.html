@@ -1,0 +1,11 @@
+<div class="w-full">
+    <h1 class="text-2xl font-bold mb-4">Recommended</h1>
+    <app-list-videos-summary [videos]="recommendedVideos"
+        [isLoading]="isLoadingRecommendedVideos"></app-list-videos-summary>
+
+
+    <hr class="my-8 border-gray-300" />
+
+    <h1 class="text-2xl font-bold mb-4">Trending</h1>
+    <app-list-videos-summary [videos]="trendingVideos" [isLoading]="isLoadingTrendingVideos"></app-list-videos-summary>
+</div>
