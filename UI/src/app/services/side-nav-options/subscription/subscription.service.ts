@@ -5,6 +5,23 @@ import { HttpClient } from '@angular/common/http';
 import { Video } from '../../../types/video';
 import { Observable } from 'rxjs';
 
+interface VideosByChannelName {
+    [channelName: string]: Video[];
+}
+
+interface AuthenticatedState {
+    type: 'authenticated';
+    videosByChannelName: VideosByChannelName;
+}
+
+interface NotAuthenticatedState {
+    type: 'notAuthenticated';
+    subscriptionOption: SideNavOption;
+}
+
+export type SubscriptionState = AuthenticatedState | NotAuthenticatedState;
+
+
 @Injectable({
     providedIn: 'root',
 })
@@ -28,7 +45,18 @@ export class SubscriptionService extends SideNavOptionService {
         return this.subscriptionOption;
     }
 
-    getSubscriptionVideos(): Observable<Video[]> {
-        return this.http.get<Video[]>('/api/videos/subscription');
+    getSubscriptionVideos(): Observable<any> {
+        return this.http.get<any>('/api/videos/subscription');
+    }
+
+    groupVideosByChannelName(videos: Video[]): VideosByChannelName {
+        return videos.reduce((groups, video) => {
+            const channelName = video.channelName;
+            if (!groups[channelName]) {
+                groups[channelName] = [];
+            }
+            groups[channelName].push(video);
+            return groups;
+        }, {} as VideosByChannelName);
     }
 }
