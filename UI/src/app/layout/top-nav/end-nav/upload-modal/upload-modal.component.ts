@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, take, tap } from 'rxjs';
-import { AppState } from '../store/app.state';
-import { filename, isOpen } from '../store/upload/upload.selector';
 import { VideoDropzoneComponent } from "./video-dropzone/video-dropzone.component";
 import { AsyncPipe } from '@angular/common';
-import { setOpen } from '../store/upload/upload.actions';
 import { UploadFormComponent } from "./upload-form/upload-form.component";
+import { AppState } from '../../../../store/app.state';
+import { setOpen } from '../../../../store/upload/upload.actions';
+import { filename, isOpen } from '../../../../store/upload/upload.selector';
 
 @Component({
   selector: 'app-upload-modal',

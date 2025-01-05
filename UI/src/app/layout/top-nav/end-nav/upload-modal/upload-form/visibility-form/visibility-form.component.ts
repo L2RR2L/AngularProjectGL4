@@ -2,9 +2,9 @@ import { Component, inject } from '@angular/core';
 import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { TitleCasePipe } from '@angular/common';
-import { AppState } from '../../../store/app.state';
-import { setVisibility } from '../../../store/upload/upload.actions';
-import { VisibilityService } from '../../../services/visibility/visibility.service';
+import { VisibilityService } from '../../../../../../services/visibility/visibility.service';
+import { AppState } from '../../../../../../store/app.state';
+import { setVisibility } from '../../../../../../store/upload/upload.actions';
 
 @Component({
   selector: 'app-visibility-form',

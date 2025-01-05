@@ -7,16 +7,17 @@ import { selectIsLoaded } from './store/auth/auth.selectors';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { initFlowbite } from 'flowbite';
+import { SubscriptionComponent } from "./components/subscription/subscription.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet,
     LayoutComponent,
     AsyncPipe,
     CommonModule,
     SpinnerComponent,
+    SubscriptionComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

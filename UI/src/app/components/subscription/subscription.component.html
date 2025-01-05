@@ -1,0 +1,35 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-50">
+  <div class="text-center space-y-6">
+    @if (state$ | async; as state) { @if (state.type === 'notAuthenticated') {
+    <!-- Not Authenticated -->
+
+    <!-- Icon -->
+    <div class="mx-auto w-28 h-28 text-gray-700">
+      <div
+        [innerHTML]="state.subscriptionOption.svg"
+        class="w-full h-full"
+      ></div>
+    </div>
+
+    <!-- Title -->
+    <h1 class="text-3xl text-gray-800">
+      {{ state.subscriptionOption.notAuthenticatedTitle }}
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="text-lg text-gray-600">
+      {{ state.subscriptionOption.notAuthenticatedSubtitle }}
+    </p>
+
+    <!-- Button -->
+    <div class="flex justify-center">
+      <app-sign-in-button
+        class="px-6 py-3 text-base font-medium text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
+      ></app-sign-in-button>
+    </div>
+    } @else {
+    <!-- Authenticated -->
+    <h1 class="text-4xl text-green-600">WIP</h1>
+    } }
+  </div>
+</div>
