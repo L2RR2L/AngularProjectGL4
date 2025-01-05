@@ -1,0 +1,76 @@
+<div
+  class="flex items-center w-full bg-secondaryBackground border border-secondaryGrey rounded-md"
+>
+  <!-- Video Button -->
+  <div class="relative">
+    <button class="p-2 rounded hover:bg-gray-200 focus:outline-none">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="size-6"
+        (click)="toggleDropDown()"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"
+        />
+      </svg>
+    </button>
+    @if (isDropDownOpen()) {
+    <div class="md:absolute right-0 mt-2 w-40 rounded-md shadow-lg z-10">
+      <div class="hover:bg-gray-500">
+        <button
+          class="block px-4 py-2 mr-4 flex items-center"
+          (click)="toggleUploadModal()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6 mr-2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
+            />
+          </svg>
+          Upload
+        </button>
+      </div>
+      <div class="hover:bg-gray-500">
+        <button class="block px-4 py-2 mr-4 flex items-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6 mr-2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z"
+            />
+          </svg>
+          Go Live
+        </button>
+      </div>
+    </div>
+    } @if (isUploadModalOpen$ | async) {
+    <app-upload-modal></app-upload-modal>
+    }
+  </div>
+  @if(isAuthenticated$ | async){
+  <app-user-menu></app-user-menu>
+  } @else {
+  <app-sign-in-button></app-sign-in-button>
+  }
+</div>

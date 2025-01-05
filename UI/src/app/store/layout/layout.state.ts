@@ -2,6 +2,6 @@ export interface LayoutState {
   isDrawerOpen: boolean;
 }
 
-export const initialState: LayoutState = {
+export const intialLayoutState: LayoutState = {
   isDrawerOpen: false,
 };

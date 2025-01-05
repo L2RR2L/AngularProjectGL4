@@ -1,0 +1,44 @@
+<form [formGroup]="thumbnailForm" (ngSubmit)="onSubmit()">
+  <div class="space-y-4">
+    <label class="block text-sm font-medium text-gray-700">
+      Select Thumbnail
+    </label>
+
+    <div class="grid grid-cols-3 gap-4">
+      @for (thumbnail of (thumbnails$ | async); track thumbnail?.filename) {
+      <div
+        class="relative aspect-video border rounded-lg overflow-hidden cursor-pointer transition-all duration-200 transform hover:scale-[1.02]"
+        [class.ring-2]="
+          thumbnailForm.get('thumbnail')?.value === thumbnail.filename
+        "
+        [class.ring-blue-500]="
+          thumbnailForm.get('thumbnail')?.value === thumbnail.filename
+        "
+        [class.ring-offset-2]="
+          thumbnailForm.get('thumbnail')?.value === thumbnail.filename
+        "
+        [class.shadow-lg]="
+          thumbnailForm.get('thumbnail')?.value === thumbnail.filename
+        "
+        (click)="selectThumbnail(thumbnail.filename)"
+      >
+        <img
+          [src]="thumbnail.link"
+          [alt]="'Thumbnail ' + thumbnail.filename"
+          class="w-full h-full object-cover"
+        />
+        @if (thumbnailForm.get('thumbnail')?.value === thumbnail.filename) {
+        <div class="absolute inset-0 bg-blue-500 bg-opacity-20"></div>
+        }
+      </div>
+      }
+    </div>
+
+    @if (!((thumbnails$ |async)?.length)) {
+    <p>No thumbnails available</p>
+    } @if (thumbnailForm.get('thumbnail')?.invalid &&
+    thumbnailForm.get('thumbnail')?.touched) {
+    <p class="text-sm text-red-600 mt-1">Please select a thumbnail.</p>
+    }
+  </div>
+</form>

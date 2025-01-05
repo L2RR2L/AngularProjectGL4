@@ -1,0 +1,61 @@
+<form [formGroup]="detailsForm" class="space-y-6">
+  <!-- Title Input -->
+  <div>
+    <input
+      id="title"
+      formControlName="title"
+      type="text"
+      placeholder="Enter title"
+      class="mt-1 block w-full px-3 py-2 border rounded-md text-gray-900"
+      [class.border-red-500]="
+        detailsForm.get('title')?.invalid && detailsForm.get('title')?.touched
+      "
+    />
+    @if (detailsForm.get('title')?.invalid && detailsForm.get('title')?.touched)
+    {
+    <p class="text-sm text-red-600 mt-1">Title is required.</p>
+    }
+  </div>
+
+  <!-- Description Input -->
+  <div>
+    <textarea
+      id="description"
+      formControlName="description"
+      rows="4"
+      placeholder="Enter description"
+      class="mt-1 block w-full px-3 py-2 border rounded-md text-gray-900"
+      [class.border-red-500]="
+        detailsForm.get('description')?.invalid &&
+        detailsForm.get('description')?.touched
+      "
+    ></textarea>
+    @if (detailsForm.get('description')?.invalid &&
+    detailsForm.get('description')?.touched) {
+    <p class="text-sm text-red-600 mt-1">
+      Description is required and must not exceed 100 characters.
+    </p>
+    }
+  </div>
+
+  <!-- Category Select -->
+  <div>
+    <label for="category" class="block text-sm font-medium text-gray-700">
+      Category
+    </label>
+    <select
+      id="category"
+      formControlName="category"
+      class="mt-1 block w-full px-3 py-2 border rounded-md text-gray-900"
+    >
+      <option value="" disabled>Select a category</option>
+      @for (category of categories; track category) {
+      <option [value]="category">{{ category | titlecase }}</option>
+      }
+    </select>
+    @if (detailsForm.get('category')?.invalid &&
+    detailsForm.get('category')?.touched) {
+    <p class="text-sm text-red-600 mt-1">Please select a category.</p>
+    }
+  </div>
+</form>

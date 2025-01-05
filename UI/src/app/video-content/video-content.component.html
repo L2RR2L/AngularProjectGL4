@@ -1,0 +1,52 @@
+<div>
+  <!-- Video Player -->
+  <video
+    class="w-full"
+    src="{{ videoStream$ | async }}"
+    controls
+    autoplay
+  ></video>
+
+  <div class="py-4">
+    <!-- Title and Info -->
+    <h2 class="text-xl font-semibold">{{ video?.title }}</h2>
+    <p class="text-sm text-gray-600">
+      <!-- {{ new NumAbbr().abbreviate(video?.views, 2) }} views • 
+        {{ moment(video?.createdAt).format('MMM Do YY') }} -->
+    </p>
+    <hr class="my-4" />
+
+    <!-- Channel Info -->
+    <div class="flex items-center space-x-4">
+      <!-- <img alt="Avatar" [src]="video?.channelImg" class="w-12 h-12 rounded-full" /> -->
+      <div class="flex flex-col w-full">
+        <div class="flex justify-between">
+          <div>
+            <!-- <p class="font-medium">{{ video?.channelName }}</p> -->
+            <p class="text-sm text-gray-600">
+              <!-- {{ new NumAbbr().abbreviate(numberOfSubscribers, 2) }} subscribers -->
+              subscribers
+            </p>
+          </div>
+          <div class="flex items-center space-x-4">
+            <!-- LikeDislike Component -->
+            <!-- <app-like-dislikes [type]="'video'" [id]="video.id" [videoId]="video.id"></app-like-dislikes> -->
+            <!-- Subscribe Button Component -->
+            <!-- <app-subscribe-btn [channelId]="video?.channelId"></app-subscribe-btn> -->
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="mt-4">
+          <!-- <div [ngClass]="{ 'overflow-hidden': !showMore, 'max-h-24': !showMore }">
+              <p class="text-sm text-gray-800">{{ video?.description }}</p>
+            </div> -->
+          <!-- <button class="text-sm text-blue-500 mt-2" (click)="toggleShowMore()">
+              Show {{ showMore ? 'Less' : 'More' }}
+            </button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr class="my-4" />
+</div>

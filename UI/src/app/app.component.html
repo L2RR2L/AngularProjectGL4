@@ -1,72 +1,11 @@
+@if(isloaded$ | async){
 <app-layout>
   <div class="p-4">
-    <h1 class="text-2xl font-bold">Welcome to the Dashboard</h1>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-    <p class="mt-2 text-lg">This is your main content area.</p>
-  </div>
+    <router-outlet></router-outlet>
+  </div> 
 </app-layout>
+} @else {
+<div class="w-screen h-screen flex items-center justify-center">
+  <app-spinner size="16"></app-spinner>
+</div>
+}

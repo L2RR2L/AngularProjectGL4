@@ -1,0 +1,75 @@
+<!-- Stepper Wrapper -->
+<div class="overflow-y-scroll max-h-96">
+  <!-- Stepper -->
+  <div class="flex justify-center items-center mt-0 mb-6 mr-10">
+    <!-- Step 1 -->
+    <div class="flex items-center">
+      <div
+        class="w-6 h-6 flex justify-center items-center rounded-full bg-blue-700 text-white"
+      >
+        @if (!currentStep()) {1} @else {
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="size-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m4.5 12.75 6 6 9-13.5"
+          />
+        </svg>
+        }
+      </div>
+      <div class="ml-2 text-xs font-medium text-black">Details</div>
+    </div>
+    <!-- Line -->
+    <div class="flex-grow h-px bg-gray-300 mx-2"></div>
+    <!-- Step 2 -->
+    <div class="flex items-center">
+      <div
+        class="w-6 h-6 flex justify-center items-center rounded-full"
+        [ngClass]="{
+          'bg-blue-700 text-white': currentStep() === 1,
+          'bg-gray-300 text-gray-700': currentStep() !== 1
+        }"
+      >
+        2
+      </div>
+      <div class="ml-2 text-xs font-medium text-gray-500">Visibility</div>
+    </div>
+  </div>
+
+  <!-- Scrollable Form Content -->
+  <div class="flex-grow overflow-y-auto space-y-6 p-4">
+    @if (!currentStep()) {
+    <!-- Details Form -->
+    <app-details-form #detailsForm></app-details-form>
+
+    <!-- Image Picker -->
+    <app-image-picker #imagePicker></app-image-picker>
+    } @else {
+    <!-- Visibility Form -->
+    <app-visibility-form #visibilityForm></app-visibility-form>
+    }
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="flex justify-between mt-6 p-4">
+    <button
+      class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md"
+      (click)="onBack()"
+    >
+      Back
+    </button>
+    <button
+      class="px-4 py-2 bg-blue-700 text-white rounded-md"
+      (click)="onNext()"
+    >
+      @if (!currentStep()) { Next }@else { Finish }
+    </button>
+  </div>
+</div>
