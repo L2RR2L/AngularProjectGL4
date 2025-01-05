@@ -24,7 +24,6 @@ export class AuthEffects {
             return loginSuccess({ channel });
           }),
           catchError((error) => {
-            console.error(error);
             this.store.dispatch(logout());
             return EMPTY;
           })
