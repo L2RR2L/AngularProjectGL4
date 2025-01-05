@@ -13,27 +13,22 @@ export class AuthEffects {
   http = inject(HttpClient);
   store = inject(Store);
 
-  constructor() { }
+  constructor() {}
 
   login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadAuthState),
       mergeMap(() => {
-        console.log('Effect triggered, making request...');
-        return this.http
-          .get<Channel>(`/api/channels/owner`)
-          .pipe(
-            map((channel) => {
-              console.log('logged in successfully');
-              return loginSuccess({ channel });
-            }),
-            catchError((error) => {
-              // console.error(error);
-              console.log('An error occurred, logging out...');
-              this.store.dispatch(logout());
-              return EMPTY;
-            })
-          );
+        return this.http.get<Channel>(`/api/channels/owner`).pipe(
+          map((channel) => {
+            return loginSuccess({ channel });
+          }),
+          catchError((error) => {
+            console.error(error);
+            this.store.dispatch(logout());
+            return EMPTY;
+          })
+        );
       })
     )
   );

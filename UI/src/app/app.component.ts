@@ -7,6 +7,7 @@ import { selectIsLoaded } from './store/auth/auth.selectors';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { initFlowbite } from 'flowbite';
+import { HomePageComponent } from './pages/home-page/home-page.component';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ import { initFlowbite } from 'flowbite';
     AsyncPipe,
     CommonModule,
     SpinnerComponent,
+    HomePageComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
