@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
+import { API } from '../../api';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   login(): void {
-    window.location.assign(`${environment.apiURL}/api/auth/google`);
+    window.location.assign(API.Login());
   }
 }

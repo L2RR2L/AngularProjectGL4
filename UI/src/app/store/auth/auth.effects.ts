@@ -6,6 +6,7 @@ import { map, mergeMap, catchError } from 'rxjs/operators'; // Added catchError 
 import { Channel } from '../../types/channel';
 import { EMPTY } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { API } from '../../api';
 
 @Injectable()
 export class AuthEffects {
@@ -13,13 +14,13 @@ export class AuthEffects {
   http = inject(HttpClient);
   store = inject(Store);
 
-  constructor() {}
+  constructor() { }
 
   login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadAuthState),
       mergeMap(() => {
-        return this.http.get<Channel>(`/api/channels/owner`).pipe(
+        return this.http.get<Channel>(API.GetChannel()).pipe(
           map((channel) => {
             return loginSuccess({ channel });
           }),

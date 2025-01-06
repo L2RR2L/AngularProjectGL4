@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SideNavOption, SideNavOptionService } from '../../../types/side-nav-option';
-import { HttpClient } from '@angular/common/http';
+import { NotAuthenticatedState, SideNavOption, SideNavOptionService } from '../../../types/side-nav-option';
 import { Video } from '../../../types/video';
 import { Observable } from 'rxjs';
+import { VideoService } from '../../video/video.service';
 
 interface VideosByChannelName {
     [channelName: string]: Video[];
@@ -12,11 +12,6 @@ interface VideosByChannelName {
 interface AuthenticatedState {
     type: 'authenticated';
     videosByChannelName: VideosByChannelName;
-}
-
-interface NotAuthenticatedState {
-    type: 'notAuthenticated';
-    subscriptionOption: SideNavOption;
 }
 
 export type SubscriptionState = AuthenticatedState | NotAuthenticatedState;
@@ -28,7 +23,7 @@ export type SubscriptionState = AuthenticatedState | NotAuthenticatedState;
 export class SubscriptionService extends SideNavOptionService {
     subscriptionOption: SideNavOption;
 
-    constructor(private sanitizer: DomSanitizer, private http: HttpClient) {
+    constructor(private sanitizer: DomSanitizer, private videoService: VideoService) {
         super();
         this.subscriptionOption = {
             svg: this.sanitizer.bypassSecurityTrustHtml(`<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-full h-full">
@@ -45,8 +40,8 @@ export class SubscriptionService extends SideNavOptionService {
         return this.subscriptionOption;
     }
 
-    getSubscriptionVideos(): Observable<any> {
-        return this.http.get<any>('/api/videos/subscription');
+    getSubscriptionVideos(): Observable<Video[]> {
+        return this.videoService.getSubscriptionVideos();
     }
 
     groupVideosByChannelName(videos: Video[]): VideosByChannelName {

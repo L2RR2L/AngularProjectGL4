@@ -5,6 +5,7 @@ import { AppState } from '../../store/app.state';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { SideNavService } from '../../services/side-nav/side-nav.service';
 import { SideNavOption } from '../../types/side-nav-option';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-side-nav',
@@ -18,7 +19,7 @@ export class SideNavComponent {
   sideNavOptions: Array<SideNavOption>;
   activeOption: string;
 
-  constructor(private store: Store<AppState>, private sideNavService: SideNavService) {
+  constructor(private store: Store<AppState>, private sideNavService: SideNavService, private router: Router) {
     this.isDrawerOpen$ = this.store.select(
       (state) => state.layout.isDrawerOpen
     );
@@ -32,5 +33,10 @@ export class SideNavComponent {
 
   isOptionActive(name: string): boolean {
     return this.activeOption === name;
+  }
+
+  onNavOptionSelect(option: SideNavOption): void {
+    console.log("clicked; ", option.path)
+    this.router.navigate([option.path]);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, signal, ViewChild, WritableSignal } from '@angular/core';
+import { Component, ElementRef, signal, ViewChild, WritableSignal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { catchError, EMPTY, finalize, map, Observable, switchMap, tap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
@@ -7,6 +7,8 @@ import { AppState } from '../../../../../store/app.state';
 import { setLoading, setVideoFile, setThumbnails } from '../../../../../store/upload/upload.actions';
 import { isLoading } from '../../../../../store/upload/upload.selector';
 import { Thumbnail } from '../../../../../types/thumbnail';
+import { API } from '../../../../../api';
+import { FileService } from '../../../../../services/file/file.service';
 
 @Component({
   selector: 'app-video-dropzone',
@@ -23,7 +25,7 @@ export class VideoDropzoneComponent {
 
   @ViewChild('fileInput') fileInput!: ElementRef;
 
-  constructor(private store: Store<AppState>, private http: HttpClient) {
+  constructor(private store: Store<AppState>, private http: HttpClient, private fileService: FileService) {
     this.isLoading$ = this.store.select(isLoading);
   }
 
@@ -59,32 +61,22 @@ export class VideoDropzoneComponent {
   }
 
   validateFile(file: File): boolean {
-    return file.type === 'video/mp4' && file.size <= 25 * 1024 * 1024;
+    return this.fileService.validateFile(file);
   }
 
   uploadFile(file: File) {
-    const formData = new FormData();
-    formData.append('file', file);
-
-    return this.http.post<{ filename: string }>('/api/videos', formData).pipe(
+    return this.fileService.uploadFile(file).pipe(
       tap(() => this.store.dispatch(setLoading({ isLoading: true }))),
       // Extract filename from response
       map(response => response.filename),
       // Store video file info
       tap(filename => this.store.dispatch(setVideoFile({ filename }))),
       // Call thumbnails request
-      switchMap(filename =>
-        this.http.post<{ thumbnails: Thumbnail[] }>(
-          '/api/videos/thumbnails',
-          { filename }
-        )
-      ),
+      switchMap(filename => this.fileService.getThumbnails(filename)),
       // Store thumbnails
-      tap(response => {
-        this.store.dispatch(setThumbnails({ thumbnails: response.thumbnails }));
-      }),
+      tap(response => this.store.dispatch(setThumbnails({ thumbnails: response.thumbnails }))),
       // Error handling
-      catchError(error => {
+      catchError(() => {
         this.store.dispatch(setVideoFile({ filename: null }));
         this.store.dispatch(setThumbnails({ thumbnails: null }));
         return EMPTY;

@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SideNavOption, SideNavOptionService } from '../../../types/side-nav-option';
+import { Video } from '../../../types/video';
+import { Observable } from 'rxjs';
+import { VideoService } from '../../video/video.service';
 
 @Injectable({
     providedIn: 'root',
@@ -8,7 +11,7 @@ import { SideNavOption, SideNavOptionService } from '../../../types/side-nav-opt
 export class HomeService extends SideNavOptionService {
     homeOption: SideNavOption;
 
-    constructor(private sanitizer: DomSanitizer) {
+    constructor(private sanitizer: DomSanitizer, private videoService: VideoService) {
         super();
         this.homeOption = {
             svg: this.sanitizer.bypassSecurityTrustHtml(`<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-full h-full">
@@ -21,5 +24,13 @@ export class HomeService extends SideNavOptionService {
 
     override getSideNavOption(): SideNavOption {
         return this.homeOption;
+    }
+
+    getRecommendedVideos(): Observable<Video[]> {
+        return this.videoService.getRecommendedVideos();
+    }
+
+    getTrendingVideos(): Observable<Video[]> {
+        return this.videoService.getTrendingVideos();
     }
 }

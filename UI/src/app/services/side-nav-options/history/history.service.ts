@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SideNavOption, SideNavOptionService } from '../../../types/side-nav-option';
+import { NotAuthenticatedState, SideNavOption, SideNavOptionService } from '../../../types/side-nav-option';
+
+interface AuthenticatedState {
+    type: 'authenticated';
+    // add needed fields when authenticated
+}
+
+export type HistoryState = AuthenticatedState | NotAuthenticatedState;
 
 @Injectable({
     providedIn: 'root',
