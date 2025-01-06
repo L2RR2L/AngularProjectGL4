@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Video } from '../../types/video';
 import { ListVideosSummaryComponent } from './list-videos-summary/list-videos-summary.component';
-import { HttpClient } from '@angular/common/http';
+import { HomeService } from '../../services/side-nav-options/home/home.service';
 
 @Component({
   selector: 'app-home-page',
@@ -16,12 +16,13 @@ export class HomePageComponent {
   trendingVideos: Video[] = [];
   isLoadingTrendingVideos: boolean = true;
 
-  constructor(private http: HttpClient) {}
+  homeService = inject(HomeService);
+  constructor() { }
 
   ngOnInit() {
-    this.http.get<{ videos: Video[] }>('/api/videos/recommended').subscribe({
-      next: (data) => {
-        this.recommendedVideos = data.videos;
+    this.homeService.getRecommendedVideos().subscribe({
+      next: (videos) => {
+        this.recommendedVideos = videos;
         this.isLoadingRecommendedVideos = false;
       },
       error: (error) => {
@@ -32,11 +33,9 @@ export class HomePageComponent {
       },
     });
 
-    this.http
-      .get<{ videos: Video[] }>('/api/videos/trending')
-      .subscribe((data) => {
-        this.trendingVideos = data.videos;
-        this.isLoadingTrendingVideos = false;
-      });
+    this.homeService.getTrendingVideos().subscribe((videos) => {
+      this.trendingVideos = videos;
+      this.isLoadingTrendingVideos = false;
+    });
   }
 }

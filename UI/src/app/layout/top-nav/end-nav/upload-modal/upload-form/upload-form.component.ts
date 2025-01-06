@@ -11,6 +11,8 @@ import { selectCurrentChannel } from '../../../../../store/auth/auth.selectors';
 import { resetUpload, setLoading } from '../../../../../store/upload/upload.actions';
 import { details, thumbnail, visibility, filename } from '../../../../../store/upload/upload.selector';
 import { UploadState, initialUploadState } from '../../../../../store/upload/upload.state';
+import { API } from '../../../../../api';
+import { UploadService } from '../../../../../services/upload/upload.service';
 
 @Component({
   selector: 'app-upload-form',
@@ -27,7 +29,7 @@ export class UploadFormComponent {
   currentStep: WritableSignal<number> = signal(0);
 
   http = inject(HttpClient);
-
+  uplaodService = inject(UploadService);
   store = inject(Store<AppState>);
   uploadState: UploadState = initialUploadState;
 
@@ -90,13 +92,7 @@ export class UploadFormComponent {
         this.store.dispatch(setLoading({ isLoading: true }));
       }),
       switchMap(state =>
-        this.http.post('/api/videos/upload', {
-          ...state.details,
-          uploader: state.uploader,
-          thumbnailFilename: state.thumbnailFileName,
-          visibility: state.visibility,
-          filename: state.filename
-        }).pipe(
+        this.uplaodService.postUploadVideo(state).pipe(
           tap(() => {
             this.store.dispatch(resetUpload());
             this.currentStep.set(0);

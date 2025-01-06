@@ -9,6 +9,11 @@ export interface SideNavOption {
     notAuthenticatedSubtitle?: string;
 }
 
+export interface NotAuthenticatedState {
+    type: 'notAuthenticated';
+    option: SideNavOption;
+}
+
 export abstract class SideNavOptionService {
     abstract getSideNavOption(): SideNavOption;
 }

@@ -7,6 +7,7 @@ import { AppState } from '../../../../../store/app.state';
 import { setLoading, setVideoFile, setThumbnails } from '../../../../../store/upload/upload.actions';
 import { isLoading } from '../../../../../store/upload/upload.selector';
 import { Thumbnail } from '../../../../../types/thumbnail';
+import { API } from '../../../../../api';
 
 @Component({
   selector: 'app-video-dropzone',
@@ -66,7 +67,7 @@ export class VideoDropzoneComponent {
     const formData = new FormData();
     formData.append('file', file);
 
-    return this.http.post<{ filename: string }>('/api/videos', formData).pipe(
+    return this.http.post<{ filename: string }>(API.PostUploadFile(), formData).pipe(
       tap(() => this.store.dispatch(setLoading({ isLoading: true }))),
       // Extract filename from response
       map(response => response.filename),
@@ -75,7 +76,7 @@ export class VideoDropzoneComponent {
       // Call thumbnails request
       switchMap(filename =>
         this.http.post<{ thumbnails: Thumbnail[] }>(
-          '/api/videos/thumbnails',
+          API.GetThumbnails(),
           { filename }
         )
       ),

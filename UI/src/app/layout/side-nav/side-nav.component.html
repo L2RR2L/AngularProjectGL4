@@ -15,7 +15,7 @@
           'bg-gray-200': isOptionActive(option.name),
           'hover:bg-gray-200': !isOptionActive(option.name)
         }"
-        (click)="setActiveOption(option.name)"
+        (click)="setActiveOption(option.name); onNavOptionSelect(option)"
       >
         <div class="w-6 h-6 flex-shrink-0" [innerHTML]="option.svg"></div>
         <div
