@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Video } from '../../types/video';
 import { ListVideosSummaryComponent } from './list-videos-summary/list-videos-summary.component';
 import { HomeService } from '../../services/side-nav-options/home/home.service';
@@ -10,14 +10,13 @@ import { HomeService } from '../../services/side-nav-options/home/home.service';
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
 })
-export class HomePageComponent {
+export class HomePageComponent implements OnInit {
   recommendedVideos: Video[] = [];
   isLoadingRecommendedVideos: boolean = true;
   trendingVideos: Video[] = [];
   isLoadingTrendingVideos: boolean = true;
 
-  homeService = inject(HomeService);
-  constructor() { }
+  constructor(private homeService: HomeService) { }
 
   ngOnInit() {
     this.homeService.getRecommendedVideos().subscribe({

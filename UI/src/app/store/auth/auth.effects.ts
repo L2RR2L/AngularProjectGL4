@@ -14,7 +14,7 @@ export class AuthEffects {
   http = inject(HttpClient);
   store = inject(Store);
 
-  constructor() {}
+  constructor() { }
 
   login$ = createEffect(() =>
     this.actions$.pipe(

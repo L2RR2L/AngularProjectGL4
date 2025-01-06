@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NotAuthenticatedState, SideNavOption, SideNavOptionService } from '../../../types/side-nav-option';
-import { HttpClient } from '@angular/common/http';
 import { Video } from '../../../types/video';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { VideoService } from '../../video/video.service';
 
 interface VideosByChannelName {

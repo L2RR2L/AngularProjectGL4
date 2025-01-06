@@ -1,6 +1,6 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { setDrawer, toggleDrawer } from '../../../store/layout/layout.actions';
+import { toggleDrawer } from '../../../store/layout/layout.actions';
 import { AppState } from '../../../store/app.state';
 
 @Component({
@@ -11,7 +11,7 @@ import { AppState } from '../../../store/app.state';
   styleUrl: './start-nav.component.css',
 })
 export class StartNavComponent {
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>) { }
 
   toggleDrawer() {
     this.store.dispatch(toggleDrawer());

@@ -30,4 +30,14 @@ export class VideoService {
       map(data => data.videos)
     )
   }
+
+  postUploadVideo(state: any) {
+    return this.http.post(API.PostUploadVideo(), {
+      ...state.details,
+      uploader: state.uploader,
+      thumbnailFilename: state.thumbnailFileName,
+      visibility: state.visibility,
+      filename: state.filename
+    });
+  }
 }

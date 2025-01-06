@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { TitleCasePipe } from '@angular/common';
@@ -16,17 +16,13 @@ import { setVisibility } from '../../../../../../store/upload/upload.actions';
 export class VisibilityFormComponent {
   visibilityForm: FormGroup;
   selectedThumbnail: string | null = null;
+  visibility: string[];
 
-  store = inject(Store<AppState>);
-  fb = inject(FormBuilder);
-  visibilityService = inject(VisibilityService);
-
-  visibility = this.visibilityService.getVisibilityOptions();
-
-  constructor() {
+  constructor(private store: Store<AppState>, private fb: FormBuilder, private visibilityService: VisibilityService) {
     this.visibilityForm = this.fb.group({
       visibility: ['', [Validators.required]]
     });
+    this.visibility = this.visibilityService.getVisibilityOptions();
   }
 
   selectVisibility(visibility: string) {

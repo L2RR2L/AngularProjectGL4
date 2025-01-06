@@ -1,7 +1,6 @@
 import {
   Component,
   HostListener,
-  inject,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -33,11 +32,9 @@ export class EndNavComponent {
   isDropDownOpen: WritableSignal<boolean> = signal(false);
 
   isUploadModalOpen$: Observable<boolean>;
-
-  authService = inject(AuthService);
   isAuthenticated$: Observable<boolean>;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private authService: AuthService) {
     this.isUploadModalOpen$ = this.store.select(isOpen);
     this.isAuthenticated$ = this.store.select(selectIsAuthenticated);
   }

@@ -1,18 +1,16 @@
-import { Component, inject, signal, ViewChild, WritableSignal } from '@angular/core';
+import { Component, signal, ViewChild, WritableSignal } from '@angular/core';
 import { DetailsFormComponent } from "./details-form/details-form.component";
 import { ImagePickerComponent } from "./image-picker/image-picker.component";
 import { NgClass } from '@angular/common';
 import { VisibilityFormComponent } from "./visibility-form/visibility-form.component";
-import { catchError, combineLatest, EMPTY, forkJoin, map, mergeMap, switchMap, take, tap } from 'rxjs';
+import { catchError, combineLatest, EMPTY, map, mergeMap, switchMap, take, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { HttpClient } from '@angular/common/http';
 import { AppState } from '../../../../../store/app.state';
 import { selectCurrentChannel } from '../../../../../store/auth/auth.selectors';
 import { resetUpload, setLoading } from '../../../../../store/upload/upload.actions';
 import { details, thumbnail, visibility, filename } from '../../../../../store/upload/upload.selector';
 import { UploadState, initialUploadState } from '../../../../../store/upload/upload.state';
-import { API } from '../../../../../api';
-import { UploadService } from '../../../../../services/upload/upload.service';
+import { VideoService } from '../../../../../services/video/video.service';
 
 @Component({
   selector: 'app-upload-form',
@@ -28,10 +26,9 @@ export class UploadFormComponent {
 
   currentStep: WritableSignal<number> = signal(0);
 
-  http = inject(HttpClient);
-  uplaodService = inject(UploadService);
-  store = inject(Store<AppState>);
   uploadState: UploadState = initialUploadState;
+
+  constructor(private videoService: VideoService, private store: Store<AppState>) { }
 
   onNext() {
     if (!this.currentStep()) {
@@ -92,7 +89,7 @@ export class UploadFormComponent {
         this.store.dispatch(setLoading({ isLoading: true }));
       }),
       switchMap(state =>
-        this.uplaodService.postUploadVideo(state).pipe(
+        this.videoService.postUploadVideo(state).pipe(
           tap(() => {
             this.store.dispatch(resetUpload());
             this.currentStep.set(0);

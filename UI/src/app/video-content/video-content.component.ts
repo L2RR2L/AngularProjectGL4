@@ -1,4 +1,4 @@
-import { Component, input, WritableSignal } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
 import { VideoService } from '../services/video/video.service';
 import { map, Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
@@ -10,14 +10,14 @@ import { AsyncPipe } from '@angular/common';
   templateUrl: './video-content.component.html',
   styleUrl: './video-content.component.css',
 })
-export class VideoContentComponent {
+export class VideoContentComponent implements OnInit {
   videoId = input<string>('');
   videoStream$ = new Observable();
   video: any = {};
   numberOfSubscribers: number = 0;
   showMore: boolean = false;
 
-  constructor(protected videoService: VideoService) {}
+  constructor(protected videoService: VideoService) { }
 
   ngOnInit(): void {
     this.fetchVideoContent();
