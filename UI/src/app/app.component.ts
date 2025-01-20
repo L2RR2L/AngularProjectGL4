@@ -26,7 +26,10 @@ import { AppState } from './store/app.state';
 export class AppComponent implements OnInit {
   isloaded$: Observable<boolean | undefined>;
 
-  constructor(private flowbiteService: FlowbiteService, private store: Store<AppState>) {
+  constructor(
+    private flowbiteService: FlowbiteService,
+    private store: Store<AppState>
+  ) {
     afterNextRender(() => {
       this.flowbiteService.loadFlowbite((flowbite) => {
         console.log('Flowbite loaded', flowbite);

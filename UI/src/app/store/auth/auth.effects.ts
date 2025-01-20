@@ -14,7 +14,7 @@ export class AuthEffects {
   http = inject(HttpClient);
   store = inject(Store);
 
-  constructor() { }
+  constructor() {}
 
   login$ = createEffect(() =>
     this.actions$.pipe(
@@ -24,7 +24,7 @@ export class AuthEffects {
           map((channel) => {
             return loginSuccess({ channel });
           }),
-          catchError((error) => {
+          catchError(() => {
             this.store.dispatch(logout());
             return EMPTY;
           })

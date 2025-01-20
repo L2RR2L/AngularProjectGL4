@@ -1,4 +1,4 @@
-import { environment } from "../../environments/environment";
+import { environment } from '../../environments/environment';
 
 export const API = {
   GetVideo: (videoId: string) => `/api/videos/${videoId}`,
@@ -9,6 +9,7 @@ export const API = {
   GetThumbnails: () => '/api/videos/thumbnails',
   GetRecommendedVideos: () => '/api/videos/recommended',
   GetTrendingVideos: () => '/api/videos/trending',
+  GetChannel: () => `/api/channels/owner`,
   Login: () => `${environment.apiURL}/api/auth/google`,
-  GetChannel: () => `/api/channels/owner`
+  Logout: () => `/api/auth/google/logout`,
 };
