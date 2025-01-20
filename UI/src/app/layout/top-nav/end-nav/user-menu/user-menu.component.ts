@@ -5,6 +5,7 @@ import { logout } from '../../../../store/auth/auth.actions';
 import { AsyncPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { Channel } from '../../../../types/channel';
+import { AuthService } from '../../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-user-menu',
@@ -16,11 +17,11 @@ import { Channel } from '../../../../types/channel';
 export class UserMenuComponent {
   channel$: Observable<Channel | null>;
 
-  constructor(private store: Store) {
+  constructor(private store: Store, private auth: AuthService) {
     this.channel$ = this.store.select(selectCurrentChannel);
   }
 
   logout() {
-    this.store.dispatch(logout());
+    this.auth.logout();
   }
 }
