@@ -8,27 +8,33 @@ import { Video } from '../../types/video';
   providedIn: 'root',
 })
 export class VideoService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
   getVideo(videoId: string) {
     return this.http.patch(API.GetVideo(videoId), {
       updateViews: true,
     });
   }
   getSubscriptionVideos(): Observable<Video[]> {
-    return this.http.get<any>(API.GetSubscriptionVideos()).pipe(
-      map(data => Array.isArray(data) ? data : data.videos || Object.values(data) as Video[]),
-    );
+    return this.http
+      .get<any>(API.GetSubscriptionVideos())
+      .pipe(
+        map((data) =>
+          Array.isArray(data)
+            ? data
+            : data.videos || (Object.values(data) as Video[])
+        )
+      );
   }
   getRecommendedVideos(): Observable<Video[]> {
-    return this.http.get<{ videos: Video[] }>(API.GetRecommendedVideos()).pipe(
-      map(data => data.videos)
-    )
+    return this.http
+      .get<{ videos: Video[] }>(API.GetRecommendedVideos())
+      .pipe(map((data) => data.videos));
   }
 
   getTrendingVideos(): Observable<Video[]> {
-    return this.http.get<{ videos: Video[] }>(API.GetTrendingVideos()).pipe(
-      map(data => data.videos)
-    )
+    return this.http
+      .get<{ videos: Video[] }>(API.GetTrendingVideos())
+      .pipe(map((data) => data.videos));
   }
 
   postUploadVideo(state: any) {
@@ -37,7 +43,7 @@ export class VideoService {
       uploader: state.uploader,
       thumbnailFilename: state.thumbnailFileName,
       visibility: state.visibility,
-      filename: state.filename
+      filename: state.filename,
     });
   }
 }

@@ -35,11 +35,17 @@
     <app-upload-modal></app-upload-modal>
     }
   </div>
+
+  @if((isLoaded$ | async)==true; as isLoaded) {
+
   @if(isAuthenticated$ | async; as isAuthenticated) {
-  @if(isAuthenticated) {
   <app-user-menu></app-user-menu>
   } @else {
   <app-sign-in-button></app-sign-in-button>
   }
+
+  } @else {
+  <div> loading ...... </div>
   }
+
 </div>

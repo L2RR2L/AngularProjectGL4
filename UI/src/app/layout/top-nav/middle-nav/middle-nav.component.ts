@@ -20,8 +20,6 @@ export class MiddleNavComponent {
   }
 
   handleSearchChange(value: string): void {
-    console.log(value);
-
     this.searchValue.set(value);
   }
 }

@@ -1,16 +1,14 @@
-import {
-  Component,
-  HostListener,
-  signal,
-  WritableSignal,
-} from '@angular/core';
+import { Component, HostListener, signal, WritableSignal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../store/app.state';
 import { combineLatest, Observable, take, tap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { isOpen } from '../../../store/upload/upload.selector';
 import { setOpen } from '../../../store/upload/upload.actions';
-import { selectIsAuthenticated } from '../../../store/auth/auth.selectors';
+import {
+  selectIsAuthenticated,
+  selectIsLoaded,
+} from '../../../store/auth/auth.selectors';
 import { UserMenuComponent } from './user-menu/user-menu.component';
 import { SignInButtonComponent } from './sign-in-button/sign-in-button.component';
 import { AuthService } from '../../../services/auth/auth.service';
@@ -33,9 +31,14 @@ export class EndNavComponent {
 
   isUploadModalOpen$: Observable<boolean>;
   isAuthenticated$: Observable<boolean>;
+  isLoaded$: Observable<boolean | undefined>;
 
-  constructor(private store: Store<AppState>, private authService: AuthService) {
+  constructor(
+    private store: Store<AppState>,
+    private authService: AuthService
+  ) {
     this.isUploadModalOpen$ = this.store.select(isOpen);
+    this.isLoaded$ = this.store.select(selectIsLoaded);
     this.isAuthenticated$ = this.store.select(selectIsAuthenticated);
   }
 
