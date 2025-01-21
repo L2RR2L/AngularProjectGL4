@@ -20,7 +20,7 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(loadAuthState),
       mergeMap(() => {
-        return this.http.get<Channel>(API.GetChannel()).pipe(
+        return this.http.get<Channel>(API.GetOwnerChannel()).pipe(
           map((channel) => {
             return loginSuccess({ channel });
           }),
