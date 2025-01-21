@@ -1,13 +1,22 @@
 <div class="p-4 mx-auto w-96">
-    <app-thumbnail [video]="video()"></app-thumbnail>
-    <div class="flex items-start mt-4">
-        <img [src]="video().channelImg" alt="{{ video().channelName }}" class="w-12 h-12 rounded-full mr-4" />
-        <div>
-            <h2 class="text-lg font-semibold text-gray-900">{{ video().title }}</h2>
-            <p class="text-sm text-gray-600">{{ video().channelName }}</p>
-            <p class="text-xs text-gray-500">
-                {{ video().views }} views • {{ video().createdAt }}
-            </p>
-        </div>
+  <app-thumbnail [video]="video()"></app-thumbnail>
+
+  <div class="flex items-start mt-4">
+    <a [routerLink]="['/channel', video().channelId]">
+      <img
+        [src]="video().channelImg"
+        alt="{{ video().channelName }}"
+        class="w-12 h-12 rounded-full mr-4"
+      />
+    </a>
+    <div>
+      <h2 class="text-lg font-semibold text-gray-900">{{ video().title }}</h2>
+      <a [routerLink]="['/channel', video().channelId]">
+        <p class="text-sm text-gray-600">{{ video().channelName }}</p>
+      </a>
+      <p class="text-xs text-gray-500">
+        {{ video().views }} views • {{ video().createdAt }}
+      </p>
     </div>
+  </div>
 </div>
