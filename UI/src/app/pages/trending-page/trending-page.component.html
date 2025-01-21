@@ -1,37 +1,8 @@
 <div class="p-8 bg-gray-50 min-h-screen">
-    <div class="text-2xl font-bold mb-6"> {{ categoryChosen() !== undefined ? categories[categoryChosen()!].name : '' }}
+    <div class="text-2xl font-bold mb-6">
+        {{ categoryChosen() !== undefined ? categories[categoryChosen()!].name : '' }}
     </div>
-    <div class="flex justify-center gap-10">
-        @for ( category of categories; track category.name){
-        <div class="flex flex-col items-center cursor-pointer" (click)="onCategoryChosen($index)">
-            <div
-                class="w-16 h-16 flex items-center justify-center bg-gray-200 rounded-full hover:bg-gray-300 transition-all overflow-hidden">
-                <img [src]="category.icon" alt="{{ category.name }}" class="w-16 h-16">
-            </div>
-            <span class="mt-2 text-sm">{{ category.name }}</span>
-        </div>
-        }
-    </div>
+    <app-categories [categories]="categories" (categoryChosen)="onCategoryChosen($event)"></app-categories>
     <hr class="my-8 border-gray-300" />
-
-
-    <div class="space-y-6">
-        @for ( video of trendingVideos; track video.id){
-        <div class="flex items-start space-x-4">
-            <div class="relative  w-60">
-                <img [src]="video.thumbnailLink" alt="{{ video.title }}" class="w-full rounded-lg cursor-pointer" />
-                <span
-                    class="absolute bottom-2 right-2 bg-black bg-opacity-75 text-white text-xs font-semibold px-1.5 py-0.5 rounded">
-                    {{ video.duration }}
-                </span>
-            </div>
-            <div>
-                <div class="text-lg font-semibold">{{ video.title }}</div>
-                <div class="text-sm text-gray-600">{{ video.channelName }} · {{ video.views }} views · {{
-                    video.createdAt }}
-                </div>
-                <div class="text-sm text-gray-500">{{ video.description }}</div>
-            </div>
-        </div>}
-    </div>
+    <app-videos [videos]="trendingVideos"></app-videos>
 </div>

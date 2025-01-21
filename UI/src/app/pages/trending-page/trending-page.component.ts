@@ -4,11 +4,15 @@ import { toObservable } from '@angular/core/rxjs-interop';
 import { VideoService } from '../../services/video/video.service';
 import { Category } from '../../types/category.enum';
 import { switchMap, tap } from 'rxjs';
+import { CategoriesComponent } from './categories/categories.component';
+import { VideosComponent } from './videos/videos.component';
 
 @Component({
-  selector: 'app-sports-page',
+  selector: 'app-trending-page',
   templateUrl: './trending-page.component.html',
-  styleUrls: ['./trending-page.component.css'], // Optional if needed for custom styling
+  styleUrls: ['./trending-page.component.css'],
+  imports: [CategoriesComponent, VideosComponent],
+  standalone: true,
 })
 export class TrendingPageComponent {
   categoryChosen = signal<number | undefined>(undefined);
