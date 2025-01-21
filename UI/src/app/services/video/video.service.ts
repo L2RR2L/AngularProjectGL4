@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { API } from '../../api';
 import { map, Observable } from 'rxjs';
 import { Video } from '../../types/video';
+import { Category } from '../../types/category.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -31,9 +32,9 @@ export class VideoService {
       .pipe(map((data) => data.videos));
   }
 
-  getTrendingVideos(): Observable<Video[]> {
+  getTrendingVideos(category?: Category): Observable<Video[]> {
     return this.http
-      .get<{ videos: Video[] }>(API.GetTrendingVideos())
+      .get<{ videos: Video[] }>(API.GetTrendingVideos(category))
       .pipe(map((data) => data.videos));
   }
 

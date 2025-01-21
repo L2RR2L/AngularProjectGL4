@@ -8,7 +8,10 @@ export const API = {
   PostUploadFile: () => '/api/videos',
   GetThumbnails: () => '/api/videos/thumbnails',
   GetRecommendedVideos: () => '/api/videos/recommended',
-  GetTrendingVideos: () => '/api/videos/trending',
+  GetTrendingVideos: (category?: number) =>
+    category == undefined
+      ? '/api/videos/trending'
+      : `/api/videos/trending/${category}`,
   GetChannel: () => `/api/channels/owner`,
   Login: () => `${environment.apiURL}/api/auth/google`,
   Logout: () => `/api/auth/google/logout`,
