@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { API } from '../../api';
 import { map, Observable } from 'rxjs';
 import { Video } from '../../types/video';
+import { Category } from '../../types/category.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -16,14 +17,8 @@ export class VideoService {
   }
   getSubscriptionVideos(): Observable<Video[]> {
     return this.http
-      .get<any>(API.GetSubscriptionVideos())
-      .pipe(
-        map((data) =>
-          Array.isArray(data)
-            ? data
-            : data.videos || (Object.values(data) as Video[])
-        )
-      );
+      .get<{ videos: Video[] }>(API.GetSubscriptionVideos())
+      .pipe(map(data => data.videos));
   }
   getRecommendedVideos(): Observable<Video[]> {
     return this.http
@@ -31,9 +26,9 @@ export class VideoService {
       .pipe(map((data) => data.videos));
   }
 
-  getTrendingVideos(): Observable<Video[]> {
+  getTrendingVideos(category?: Category): Observable<Video[]> {
     return this.http
-      .get<{ videos: Video[] }>(API.GetTrendingVideos())
+      .get<{ videos: Video[] }>(API.GetTrendingVideos(category))
       .pipe(map((data) => data.videos));
   }
 
@@ -45,5 +40,11 @@ export class VideoService {
       visibility: state.visibility,
       filename: state.filename,
     });
+  }
+
+  getChannelVideos(channelId: string): Observable<Video[]> {
+    return this.http.get<{ videos: Video[] }>(API.GetChannelVideos(channelId)).pipe(
+      map(data => data.videos)
+    );
   }
 }

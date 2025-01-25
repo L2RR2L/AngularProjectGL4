@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, input, Input } from '@angular/core';
 
 @Component({
   selector: 'app-spinner',
@@ -9,5 +9,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './spinner.component.css',
 })
 export class SpinnerComponent {
-  @Input() size: string = '8'; // Default size
+  size = input<string>('8');
 }

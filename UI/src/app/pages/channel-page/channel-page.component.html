@@ -1,0 +1,37 @@
+@if (channel$ | async; as channel){
+<div class="max-w-screen-xl mx-auto px-4">
+  <!-- Channel Header -->
+  <div class="flex items-center justify-between py-6">
+    <div class="flex items-center gap-4">
+      <img
+        [src]="channel.imageLink || ''"
+        [alt]="channel.name"
+        class="w-20 h-20 rounded-full"
+      />
+      <div>
+        <h1 class="text-2xl font-bold">{{ channel.name }}</h1>
+        <p class="text-gray-600">
+          @if ((subscriberCount$ | async) === 1) { 1 subscriber } @else {
+          {{ subscriberCount$ | async }} subscribers }
+        </p>
+      </div>
+    </div>
+    <button
+      class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-medium"
+      (click)="onSubscriptionToggle()"
+    >
+      @if(isCurrentUserSubscribed$ | async) {Unsubscribe} @else {Subscribe}
+    </button>
+  </div>
+
+  <!-- Video Grid -->
+  @if (videos$ | async; as videos){
+  <app-list-videos-summary
+    [videos]="videos"
+    [isLoading]="false"
+  ></app-list-videos-summary>
+  }@else {
+  <div>No videos Available</div>
+  }
+</div>
+}
