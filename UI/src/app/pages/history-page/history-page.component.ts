@@ -20,7 +20,7 @@ import { ListVideosSummaryComponent } from './list-videos-summary/list-videos-su
 export class HistoryPageComponent implements OnInit {
   state$: Observable<HistoryState>;
 
-  myHistory: History[] = [];
+  myHistory: History[] | undefined;
 
   constructor(private store: Store<AppState>, private historyService: HistoryService) {
     this.state$ = this.store.select(selectIsAuthenticated).pipe(
