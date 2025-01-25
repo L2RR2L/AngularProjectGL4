@@ -1,4 +1,3 @@
-const History = require("./index");
 const { extractVideoInfo } = require("../../utils");
 
 const methods = (historySchema) => {
@@ -6,8 +5,9 @@ const methods = (historySchema) => {
     userId,
     videoId,
   }) {
+    const History = this;
     try {
-      const history = new History({ user: userId, video: videoId });
+      const history = new History({ userId, video: videoId });
       await history.save();
     } catch (err) {
       throw err;
@@ -15,8 +15,9 @@ const methods = (historySchema) => {
   };
 
   historySchema.statics.getWatchHistory = async function (userId) {
+    const History = this;
     try {
-      const history = await History.find({ user: userId })
+      const history = await History.find({ userId })
         .populate("video")
         .sort({ watchedAt: -1 });
       return history.map((entry) => extractVideoInfo(entry.video));

@@ -3,10 +3,13 @@ const Schema = mongoose.Schema;
 
 const historySchema = mongoose.Schema(
   {
-    user: {
+    id: {
       type: Schema.Types.ObjectId,
-      ref: "Channel",
       required: [true, "{PATH} is required"],
+    },
+    userId: {
+      type: Schema.Types.ObjectId,
+      required: [true, "userId is required"],
     },
     video: {
       type: Schema.Types.ObjectId,
@@ -21,6 +24,7 @@ const historySchema = mongoose.Schema(
   { timestamps: true }
 );
 
+require("./methods")(historySchema);
 const History = mongoose.model("History", historySchema);
 
 module.exports = History;

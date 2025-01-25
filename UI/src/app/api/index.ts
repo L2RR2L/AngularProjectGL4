@@ -12,4 +12,6 @@ export const API = {
   GetChannel: () => `/api/channels/owner`,
   Login: () => `${environment.apiURL}/api/auth/google`,
   Logout: () => `/api/auth/google/logout`,
+  GetHistoryByUserId: () => `/api/history`,
+  AddVideoToHistory: () => `/api/history/save`,
 };
