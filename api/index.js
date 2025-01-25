@@ -5,7 +5,7 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const path = require("path");
-const { auth2 } = require("./middleware/auth");
+const { auth2, auth } = require("./middleware/auth");
 const { runCronJobs } = require("./services/cronJobs");
 const morgan = require("morgan");
 
@@ -20,6 +20,7 @@ const videoRoutes = require("./routes/videos");
 const subscriptionRoutes = require("./routes/subscriptions");
 const commentRoutes = require("./routes/comments");
 const ratingRoutes = require("./routes/ratings");
+const historyRoutes = require("./routes/history");
 const passport = require("./config/passport");
 
 //Use Morgan
@@ -54,6 +55,7 @@ app.use("/api/subscriptions", auth2, subscriptionRoutes);
 app.use("/api/videos", auth2, videoRoutes);
 app.use("/api/comments", auth2, commentRoutes);
 app.use("/api/ratings", auth2, ratingRoutes);
+app.use("/api/history", auth, historyRoutes);
 
 //For Deploying client & api on one server
 if (process.env.NODE_ENV === "production") {

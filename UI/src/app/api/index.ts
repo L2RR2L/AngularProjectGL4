@@ -20,4 +20,6 @@ export const API = {
       ? '/api/videos/trending'
       : `/api/videos/trending/${category}`,
   Logout: () => `/api/auth/google/logout`,
+  GetHistoryByUserId: () => `/api/history`,
+  AddVideoToHistory: () => `/api/history/save`,
 };
