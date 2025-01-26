@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { API } from '../../api';
@@ -38,4 +39,17 @@ export class ChannelService {
             map(response => response.message)
         );
     }
+   getChannelSubscriptionsCount(channelId: string): Observable<number> {
+    return this.http
+      .post<{ subscribers: number }>(API.GetSubscriptionsCount(), {
+        channel: channelId,
+      })
+      .pipe(
+        map((data) => {
+          console.log(data);
+
+          return data.subscribers;
+        })
+      );
+  }
 }

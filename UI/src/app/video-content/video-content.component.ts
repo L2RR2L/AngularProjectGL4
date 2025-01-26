@@ -1,39 +1,72 @@
-import { Component, input, OnInit } from '@angular/core';
+import {
+  Component,
+  computed,
+  input,
+  OnChanges,
+  OnInit,
+  signal,
+  SimpleChanges,
+} from '@angular/core';
 import { VideoService } from '../services/video/video.service';
 import { map, Observable } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
+import { Video } from '../types/video';
+import { ChannelService } from '../services/channel/channel.service';
+import { LikeDislikesComponent } from '../components/like-dislikes/like-dislikes.component';
+import { SubscribeBtnComponent } from '../components/subscribe-btn/subscribe-btn.component';
+import moment from 'moment';
 
 @Component({
   selector: 'app-video-content',
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, LikeDislikesComponent, SubscribeBtnComponent, NgClass],
   templateUrl: './video-content.component.html',
   styleUrl: './video-content.component.css',
 })
-export class VideoContentComponent implements OnInit {
-  videoId = input<string>('');
-  videoStream$ = new Observable();
-  video: any = {};
-  numberOfSubscribers: number = 0;
-  showMore: boolean = false;
+export class VideoContentComponent implements OnChanges {
+  video = input<Video>({
+    id: '',
+    title: '',
+    views: 0,
+    createdAt: '',
+    description: '',
+    duration: '',
+    thumbnailLink: '',
+    videoLink: '',
+    channelId: '',
+    channelName: '',
+    channelImg: '',
+  });
+  channelSubscriptionsCount = new Observable<number>();
+  showMore = signal<boolean>(false);
 
-  constructor(protected videoService: VideoService) { }
+  creationDate = computed(() => {
+    const date = new Date(this.video().createdAt) || new Date();
+    // return new Date(this.video().createdAt);
+    return moment(date).format('MMM DD, YYYY');
+  });
 
-  ngOnInit(): void {
-    this.fetchVideoContent();
+  constructor(
+    protected videoService: VideoService,
+    protected channelService: ChannelService
+  ) {
+    console.log(this.video());
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.video());
+    this.handleSubscriptionChange();
   }
 
-  async fetchVideoContent() {
-    this.videoStream$ = this.videoService.getVideo(this.videoId()).pipe(
-      map((response: any) => {
-        console.log(response);
-
-        return response.video.videoLink;
-      })
-    );
+  handleSubscriptionChange() {
+    if (this.video().channelId) {
+      this.channelSubscriptionsCount =
+        this.channelService.getChannelSubscriptionsCount(
+          this.video().channelId
+        );
+    }
   }
 
   toggleShowMore() {
-    this.showMore = !this.showMore;
+    this.showMore.set(!this.showMore());
   }
 }
