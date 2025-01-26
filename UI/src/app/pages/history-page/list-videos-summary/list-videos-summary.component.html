@@ -1,0 +1,19 @@
+<div class="flex flex-row flex-wrap">
+  @if (isLoading()) {
+  @for (item of skeletonArray; track $index) {
+  <app-video-summary-card-skeleton />
+  }
+  } @else {
+  @for (history of histories(); track history.id) {
+  <app-video-summary-card [video]="history.video" />
+  <div class="w-full h-1">
+    watched at {{ history.watchedAt }}
+  </div>
+  }
+  @empty {
+  <div class="w-full flex items-center justify-center">
+    <p class="text-gray-400">No videos found</p>
+  </div>
+  }
+  }
+</div>

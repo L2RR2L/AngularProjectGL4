@@ -1,1 +1,8 @@
-<p>trending-page works!</p>
+<div class="p-8 bg-gray-50 min-h-screen">
+    <div class="text-2xl font-bold mb-6">
+        {{ categoryChosen() !== undefined ? categories[categoryChosen()!].name : '' }}
+    </div>
+    <app-categories [categories]="categories" (categoryChosen)="onCategoryChosen($event)"></app-categories>
+    <hr class="my-8 border-gray-300" />
+    <app-videos [videos]="trendingVideos"></app-videos>
+</div>

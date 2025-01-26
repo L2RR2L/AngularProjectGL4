@@ -8,10 +8,19 @@ export const API = {
   PostUploadFile: () => '/api/videos',
   GetThumbnails: () => '/api/videos/thumbnails',
   GetRecommendedVideos: () => '/api/videos/recommended',
-  GetTrendingVideos: () => '/api/videos/trending',
-  GetChannel: () => `/api/channels/owner`,
   Login: () => `${environment.apiURL}/api/auth/google`,
+  GetOwnerChannel: () => `/api/channels/owner`,
+  GetChannel: (channelId: string) => `/api/channels/${channelId}`,
+  GetSubscriptionState: () => `/api/subscriptions/subscribed`,
+  GetChannelVideos: (channelId: string) => `/api/videos/channel/${channelId}`,
+  PostSubscription: () => `/api/subscriptions`,
+  DeleteSubscription: (channelId: string) => `/api/subscriptions/${channelId}`,
+  GetTrendingVideos: (category?: number) =>
+    category == undefined
+      ? '/api/videos/trending'
+      : `/api/videos/trending/${category}`,
   Logout: () => `/api/auth/google/logout`,
+
   GetSubscriptionsCount: () => `/api/subscriptions/count`,
   GetVideoComments: (videoId: string) => `/api/comments/${videoId}`,
   createVideoComments: () => `/api/comments`,
@@ -24,4 +33,8 @@ export const API = {
   DeleteSubscription: (channelId: string) => `/api/subscriptions/${channelId}`,
   PostSubscription: () => `/api/subscriptions`,
   FetchSubscription: () => `/api/subscriptions/subscribed`,
+
+  GetHistoryByUserId: () => `/api/history`,
+  AddVideoToHistory: () => `/api/history/save`,
+
 };
