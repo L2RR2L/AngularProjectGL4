@@ -9,6 +9,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { FlowbiteService } from './services/flow-bite/flow-bite.service';
 import { Observable } from 'rxjs';
 import { AppState } from './store/app.state';
+import { NgxSonnerToaster } from 'ngx-sonner';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ import { AppState } from './store/app.state';
     CommonModule,
     SpinnerComponent,
     RouterModule,
+    NgxSonnerToaster,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

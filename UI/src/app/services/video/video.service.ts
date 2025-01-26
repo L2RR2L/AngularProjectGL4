@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { API } from '../../api';
-import { map, Observable } from 'rxjs';
+import { firstValueFrom, map, Observable } from 'rxjs';
 import { Video } from '../../types/video';
 
 @Injectable({
@@ -9,10 +9,18 @@ import { Video } from '../../types/video';
 })
 export class VideoService {
   constructor(private http: HttpClient) {}
-  getVideo(videoId: string) {
-    return this.http.patch(API.GetVideo(videoId), {
-      updateViews: true,
-    });
+  getVideo(videoId: string): Promise<Video> {
+    return firstValueFrom(
+      this.http
+        .patch<{ video: Video }>(API.GetVideo(videoId), {
+          updateViews: true,
+        })
+        .pipe(
+          map((data) => {
+            return data.video;
+          })
+        )
+    );
   }
   getSubscriptionVideos(): Observable<Video[]> {
     return this.http
