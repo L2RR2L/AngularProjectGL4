@@ -6,6 +6,7 @@ const config = require("../config");
 const auth = (req, res, next) => {
   //Get cookies
   const token = req.cookies.jwt_auth;
+
   try {
     //Verify token
     const signedUserId = verifyToken({

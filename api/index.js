@@ -21,6 +21,7 @@ const subscriptionRoutes = require("./routes/subscriptions");
 const commentRoutes = require("./routes/comments");
 const ratingRoutes = require("./routes/ratings");
 const historyRoutes = require("./routes/history");
+const playlistRoutes = require("./routes/playlist");
 const passport = require("./config/passport");
 
 //Use Morgan
@@ -56,6 +57,7 @@ app.use("/api/videos", auth2, videoRoutes);
 app.use("/api/comments", auth2, commentRoutes);
 app.use("/api/ratings", auth2, ratingRoutes);
 app.use("/api/history", auth, historyRoutes);
+app.use("/api/playlist", auth, playlistRoutes);
 
 //For Deploying client & api on one server
 if (process.env.NODE_ENV === "production") {
