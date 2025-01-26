@@ -1,0 +1,31 @@
+<div class="flex">
+  <div class="flex items-center text-gray-500 m-1 ml-0">
+    <span
+      (click)="handleThumbClick(getRating(1))"
+      [ngClass]="{
+        'cursor-pointer mr-1 transform transition-all duration-300': true,
+        'text-blue-700': getRating(1) === rating(),
+        'text-2xl': size() !== 'small'
+      }"
+    >
+      {{ getRating(1) === rating() ? "👍🏿" : "👍" }}
+    </span>
+    <span class="text-sm">{{ abbreviateNumber(likes()) }}</span>
+  </div>
+  <div class="flex items-center text-gray-500 m-1 ml-0">
+    <span
+      (click)="handleThumbClick(getRating(0))"
+      [ngClass]="{
+        'cursor-pointer mr-1 transform transition-all duration-300': true,
+        'text-blue-700': getRating(0) === rating(),
+        'text-2xl': size() !== 'small'
+      }"
+    >
+      {{ getRating(0) === rating() ? "👎🏿" : "👎" }}
+    </span>
+    @if(showDislikes()){
+
+    <span class="text-sm">{{ abbreviateNumber(dislikes()) }}</span>
+    }
+  </div>
+</div>
