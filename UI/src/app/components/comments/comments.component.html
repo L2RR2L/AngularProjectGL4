@@ -1,0 +1,9 @@
+<div class="hidden md:block col-span-1 md:col-span-2 lg:col-span-3">
+  <h1>0 Comments</h1>
+
+  <app-comment-form [videoId]="videoId()"></app-comment-form>
+  @for(cmt of comments() ;track cmt.id){
+
+  <app-comment [comment]="cmt"></app-comment>
+  }
+</div>

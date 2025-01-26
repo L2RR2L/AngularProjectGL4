@@ -1,0 +1,46 @@
+<div>
+  @if(isReplied()) {
+
+  <div
+    class="text-blue-700 inline-flex items-center cursor-pointer"
+    (click)="toggleOpen()"
+  >
+    @if(isOpen){
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="{2}"
+        d="M5 15l7-7 7 7"
+      />
+    </svg>
+    <span class="ml-1">Hide {{ numberOfReplies() }} replies</span>
+    }@else {
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="{2}"
+        d="M19 9l-7 7-7-7"
+      />
+    </svg>
+    <span class="ml-1">View {{ numberOfReplies() }} replies</span>
+    }
+  </div>
+  @if (isOpen && isReplied()) { @for( reply of replies() ;track reply.id){
+  <app-comment [comment]="reply"></app-comment>
+
+  } } }
+</div>
