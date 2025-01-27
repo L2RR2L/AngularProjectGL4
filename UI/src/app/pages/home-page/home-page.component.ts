@@ -16,7 +16,7 @@ export class HomePageComponent implements OnInit {
   trendingVideos: Video[] = [];
   isLoadingTrendingVideos: boolean = true;
 
-  constructor(private homeService: HomeService) { }
+  constructor(private homeService: HomeService) {}
 
   ngOnInit() {
     this.homeService.getRecommendedVideos().subscribe({
