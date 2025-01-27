@@ -26,7 +26,7 @@ export class VideoService {
   getSubscriptionVideos(): Observable<Video[]> {
     return this.http
       .get<{ videos: Video[] }>(API.GetSubscriptionVideos())
-      .pipe(map(data => data.videos));
+      .pipe(map((data) => data.videos));
   }
   getRecommendedVideos(): Observable<Video[]> {
     return this.http
@@ -51,8 +51,20 @@ export class VideoService {
   }
 
   getChannelVideos(channelId: string): Observable<Video[]> {
-    return this.http.get<{ videos: Video[] }>(API.GetChannelVideos(channelId)).pipe(
-      map(data => data.videos)
-    );
+    return this.http
+      .get<{ videos: Video[] }>(API.GetChannelVideos(channelId))
+      .pipe(map((data) => data.videos));
+  }
+
+  getVideosBySearch(
+    searchValue: string,
+    offset?: number,
+    limit?: number
+  ): Observable<Video[]> {
+    return this.http
+      .get<{ videos: Video[] }>(
+        API.GetVideosBySearch(searchValue, offset, limit)
+      )
+      .pipe(map((data) => data.videos));
   }
 }

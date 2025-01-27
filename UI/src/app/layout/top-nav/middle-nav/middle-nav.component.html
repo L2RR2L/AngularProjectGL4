@@ -1,33 +1,64 @@
-<div
-  class="flex items-center w-full bg-secondaryBackground border border-secondaryGrey rounded-md"
->
-  <input
-    #searchInput
-    type="text"
-    class="flex-grow p-2 outline-none"
-    placeholder="Search…"
-    value="{{ searchValue() }}"
-    (change)="handleSearchChange(searchInput.value)"
-    aria-label="search"
-  />
-  <button
-    class="p-2 bg-secondaryGrey/80 hover:bg-secondaryGrey border-l border-secondaryGrey focus:outline-none"
-    (click)="handleSearch()"
-    aria-label="search"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke-width="1.5"
-      stroke="currentColor"
-      class="w-5 h-5"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M15.75 15.75L21 21m-9.75-5.25a6 6 0 100-12 6 6 0 000 12z"
-      />
-    </svg>
-  </button>
+<div class="relative w-full">
+  <!-- Search Bar -->
+  <div class="flex items-center w-full bg-secondaryBackground border border-secondaryGrey rounded-md">
+    <input #searchInput type="text" class="flex-grow p-2 outline-none" placeholder="Search…" value="{{ searchValue() }}"
+      (input)="handleSearchChange(searchInput.value)" aria-label="search" appClickOutside
+      (clickOutside)="handleClickOutside()" (focus)="handleOnFocus()" />
+    <button class="p-2 bg-secondaryGrey/80 hover:bg-secondaryGrey border-l border-secondaryGrey focus:outline-none"
+      (click)="handleSearch()" aria-label="search">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+        class="w-5 h-5">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M15.75 15.75L21 21m-9.75-5.25a6 6 0 100-12 6 6 0 000 12z" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Results List -->
+  @if(canOpenDialog() && searchValue().length > 3)
+  {
+  <div
+    class="absolute z-10 mt-2 w-full bg-white border border-secondaryGrey rounded-md shadow-lg max-h-64 overflow-y-auto flex justify-center flex-col">
+
+    @for(video of searchedVideos; track video.id)
+    {
+    <div class="flex items-start mb-4 p-4 border-b last:border-none cursor-pointer">
+      <img [src]="video.thumbnailFilename" alt="Thumbnail" class="w-20 h-20 rounded-md object-cover" />
+      <div class="ml-4 flex flex-col">
+        <h3 class="text-lg font-semibold">{{ video.title }}</h3>
+        <p class="text-sm text-gray-600">
+          {{ video.description.length > 100
+          ? video.description.slice(0, 100) + '...'
+          : video.description }}
+        </p>
+        <p class="text-xs text-gray-500 mt-1">
+          Channel: {{ video.channelName }} • Views: {{ video.views }}
+        </p>
+      </div>
+    </div>
+    }@empty {
+    @if(!loadingSearchingVideos)
+    {
+    <div class="p-4 text-center">
+      No results found
+    </div>
+    }
+    }
+    @if(loadingSearchingVideos)
+    {
+    <app-spinner size="8"></app-spinner>
+    }
+    @else if (searchedVideos.length > 0)
+    {
+    <div class="p-4 text-center" (click)="handleSeeMore()">
+      <button class="text-blue-500 hover:underline font-medium">
+        See More
+      </button>
+    </div>}
+
+
+
+
+  </div>
+  }
 </div>

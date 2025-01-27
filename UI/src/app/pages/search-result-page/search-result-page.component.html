@@ -1,0 +1,29 @@
+<div class="relative w-full">
+    <!-- Search Bar (For displaying the search query) -->
+    <div class="flex items-center w-full bg-secondaryBackground border border-secondaryGrey rounded-md">
+        <input type="text" class="flex-grow p-2 outline-none" placeholder="Search…" [value]="searchQuery" readonly />
+    </div>
+
+
+    <div
+        class=" mt-2 w-full bg-white border border-secondaryGrey rounded-md shadow-lg  overflow-y-auto flex justify-center flex-col">
+
+        <app-list-videos-summary [videos]="searchedVideos" [isLoading]="false"></app-list-videos-summary>
+        <!-- Show More Button -->
+        @if(!loadingSearchingVideos && searchedVideos.length > 0)
+        {
+        <div class="p-4 text-center" (click)="handleSeeMore()">
+            <button class="text-blue-500 hover:underline font-medium">
+                See More
+            </button>
+        </div>
+        }
+
+
+
+        @if(loadingSearchingVideos)
+        {
+        <app-spinner size="8"></app-spinner>
+        }
+    </div>
+</div>
