@@ -13,6 +13,13 @@ export const API = {
   GetChannel: (channelId: string) => `/api/channels/${channelId}`,
   GetSubscriptionState: () => `/api/subscriptions/subscribed`,
   GetChannelVideos: (channelId: string) => `/api/videos/channel/${channelId}`,
+  GetVideosBySearch: (searchValue: string, offset?: number, limit?: number) => {
+    let base = `/api/videos/search/?search_query=${searchValue}`;
+    if (offset != undefined) base = `${base}&offset=${offset}`;
+    if (limit) base = `${base}&limit=${limit}`;
+    return base;
+  },
+
   PostSubscription: () => `/api/subscriptions`,
   DeleteSubscription: (channelId: string) => `/api/subscriptions/${channelId}`,
   GetTrendingVideos: (category?: number) =>
@@ -30,8 +37,6 @@ export const API = {
     `/api/ratings/user/${type}/${videoId}/${id}`,
   UpdateUserRating: (type: 'video' | 'comment', id: string, videoId: string) =>
     `/api/ratings/${type}/${videoId}/${id}`,
-  // DeleteSubscription: (channelId: string) => `/api/subscriptions/${channelId}`,
-  // PostSubscription: () => `/api/subscriptions`,
   FetchSubscription: () => `/api/subscriptions/subscribed`,
 
   GetHistoryByUserId: () => `/api/history`,

@@ -151,18 +151,23 @@ router.get("/trending/:categoryId", async (req, res) => {
   }
 });
 
-// Search for videos
+// Search for videos with offset and limit
 router.get("/search", async (req, res) => {
-  const { search_query } = req.query;
+  const { search_query, offset = 0, limit = 10 } = req.query; // Default offset is 0 and limit is 10
   try {
-    const videos = await Video.findByTitle(search_query);
+    const videos = await Video.find({ title: new RegExp(search_query, 'i') }) // Regular expression for search query
+      .skip(Number(offset)) // Skip the number of documents specified by 'offset'
+      .limit(Number(limit));
+    
     res.json({
       videos,
     });
   } catch (err) {
+    console.log(err);
     errorResponse(err, res);
   }
 });
+
 
 // Get channel videos
 router.get("/channel/:channelId", async (req, res) => {
