@@ -1,3 +1,5 @@
+const { extractVideoInfo } = require("../../utils");
+
 const methods = (playlistSchema) => {
   playlistSchema.statics.createPlaylist = async function ({ name, userId }) {
     const Playlist = this;
@@ -83,7 +85,9 @@ const methods = (playlistSchema) => {
       if (playlist.userId.toString() !== userId) {
         throw new Error("Unauthorized");
       }
-      return playlist.videos;
+      console.log(playlist.videos);
+
+      return playlist.videos.map((video) => extractVideoInfo(video));
     } catch (err) {
       throw err;
     }
