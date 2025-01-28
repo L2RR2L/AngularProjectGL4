@@ -1,0 +1,10 @@
+<div class="w-full">
+  @if(libraryVideos.length > 0){
+  <app-list-videos-summary
+    [videos]="libraryVideos"
+    [isLoading]="isLoadingLibraryVideos"
+  ></app-list-videos-summary>
+  }@else {
+  <p class="text-center text-gray-600 text-lg">No videos available.</p>
+  }
+</div>
