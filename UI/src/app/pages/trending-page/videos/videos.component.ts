@@ -4,6 +4,7 @@ import { ThumbnailComponent } from '../../../components/thumbnail/thumbnail.comp
 import { NgClass } from '@angular/common';
 import { ClickVideosNavigateDirective } from '../../../directives/clickNavigate/click-videos-navigate.directive';
 import { DataVideoIdDirective } from '../../../directives/clickNavigate/data-video-id.directive';
+import { DateFormatterPipe } from '../../../pipe/date-formatter.pipe';
 
 @Component({
   selector: 'app-videos',
@@ -12,6 +13,7 @@ import { DataVideoIdDirective } from '../../../directives/clickNavigate/data-vid
     NgClass,
     ClickVideosNavigateDirective,
     DataVideoIdDirective,
+    DateFormatterPipe
   ],
   templateUrl: './videos.component.html',
   standalone: true,

@@ -6,11 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DateFormatterPipe implements PipeTransform {
   transform(value: Date | string | number, format: string = 'dd/MM/yyyy'): string {
-    console.log("before value", value);
     if (!value) return '';
-
-    console.log("after value", value);
-
 
     const date = new Date(value);
     if (isNaN(date.getTime())) return '';

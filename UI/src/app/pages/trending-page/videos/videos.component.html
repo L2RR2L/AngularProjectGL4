@@ -7,7 +7,7 @@
       <div class="text-sm text-gray-600 flex flex-col">
         <div>{{ video.channelName }}</div>
         <div>{{ video.views }} views</div>
-        <div>{{ video.createdAt }}</div>
+        <div>{{ video.createdAt | dateFormatter }}</div>
       </div>
       <div class="text-sm text-gray-500 text-clip">
         {{ video.description.slice(0, 20) }}

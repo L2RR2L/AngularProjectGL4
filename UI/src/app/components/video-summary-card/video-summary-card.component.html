@@ -11,7 +11,7 @@
         <p class="text-sm text-gray-600">{{ video().channelName }}</p>
       </a>
       <p class="text-xs text-gray-500">
-        {{ video().views }} views • {{ video().createdAt }}
+        {{ video().views }} views • {{ video().createdAt | dateFormatter }}
       </p>
     </div>
   </div>
