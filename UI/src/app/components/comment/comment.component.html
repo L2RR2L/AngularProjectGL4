@@ -1,32 +1,21 @@
 <div class="flex py-2">
-  <img
-    [src]="comment().channelImg"
-    alt="Avatar"
-    class="w-10 h-10 rounded-full mr-2"
-  />
+  <img [src]="comment().channelImg" alt="Avatar" class="w-10 h-10 rounded-full mr-2" />
   <div class="flex-grow">
     <div class="flex items-center">
       <span class="font-medium mr-2">{{ comment().channelName }}</span>
       <span class="text-gray-500 text-sm">
-        {{ formatTimeAgo(comment().createdAt) }}
+        {{ comment().createdAt | dateFormatter }}
       </span>
     </div>
 
     <div class="my-1">{{ comment().content }}</div>
 
     <div class="flex items-center space-x-2 mb-2">
-      <app-like-dislikes
-        [type]="'comment'"
-        [id]="comment().id"
-        [videoId]="comment().videoId"
-        [size]="'small'"
-      ></app-like-dislikes>
+      <app-like-dislikes [type]="'comment'" [id]="comment().id" [videoId]="comment().videoId"
+        [size]="'small'"></app-like-dislikes>
 
-      <button
-        class="bg-gray-400 text-white h-8 w-16 px-2 py-1 rounded text-sm"
-        (click)="handleReplyClick()"
-        appOnHoverClass="bg-primaryFill"
-      >
+      <button class="bg-gray-400 text-white h-8 w-16 px-2 py-1 rounded text-sm" (click)="handleReplyClick()"
+        appOnHoverClass="bg-primaryFill">
         Reply
       </button>
     </div>
@@ -35,9 +24,6 @@
   </div>
 </div>
 @if(isReplyOpen){
-<app-comment-form
-  [videoId]="comment().videoId"
-  [commentTo]="comment().id"
-  (submitted)="handleReplyClick()"
-></app-comment-form>
+<app-comment-form [videoId]="comment().videoId" [commentTo]="comment().id"
+  (submitted)="handleReplyClick()"></app-comment-form>
 }

@@ -5,6 +5,7 @@ import { CommentFormComponent } from '../comment-form/comment-form.component';
 import { CommentRepliesComponent } from '../comment-replies/comment-replies.component';
 import { LikeDislikesComponent } from '../like-dislikes/like-dislikes.component';
 import { OnHoverClassDirective } from '../../directives/hover/on-hover-class.directive';
+import { DateFormatterPipe } from '../../pipe/date-formatter.pipe';
 
 @Component({
   selector: 'app-comment',
@@ -14,6 +15,7 @@ import { OnHoverClassDirective } from '../../directives/hover/on-hover-class.dir
     CommentRepliesComponent,
     LikeDislikesComponent,
     OnHoverClassDirective,
+    DateFormatterPipe
   ],
   templateUrl: './comment.component.html',
   styleUrl: './comment.component.css',
@@ -32,7 +34,7 @@ export class CommentComponent {
   isReplyOpen = false;
   isAuth = false;
 
-  constructor() {}
+  constructor() { }
 
   formatTimeAgo(date?: Date): string {
     if (!date) return '';
