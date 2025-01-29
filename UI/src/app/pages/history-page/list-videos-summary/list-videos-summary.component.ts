@@ -23,5 +23,9 @@ export class ListVideosSummaryComponent implements OnInit {
   a = input.required<string>();
   skeletonArray = Array.from({ length: 8 });
 
-  ngOnInit() { }
+  ngOnInit() {
+    console.log("histories", this.histories());
+    console.log("watched at", this.histories().map((history) => history.watchedAt));
+
+  }
 }
