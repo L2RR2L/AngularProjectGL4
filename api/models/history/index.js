@@ -3,10 +3,6 @@ const Schema = mongoose.Schema;
 
 const historySchema = mongoose.Schema(
   {
-    id: {
-      type: Schema.Types.ObjectId,
-      required: [true, "{PATH} is required"],
-    },
     userId: {
       type: Schema.Types.ObjectId,
       required: [true, "userId is required"],

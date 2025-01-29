@@ -43,4 +43,15 @@ export class HistoryService extends SideNavOptionService {
   }
 
 
+  addVideoToHistory(videoId: string) {
+    return this.http.post(API.AddVideoToHistory(), { videoId });
+  }
+
+  saveVideoToHistory(videoId: string) {
+    this.addVideoToHistory(videoId).subscribe({
+      next: () => console.log('Video added to history'),
+      error: (err) => console.error('Failed to add video to history', err)
+    });
+  }
+
 }

@@ -26,7 +26,6 @@ export class HistoryPageComponent implements OnInit {
     this.state$ = this.store.select(selectIsAuthenticated).pipe(
       switchMap(isAuthenticated => {
         if (isAuthenticated) {
-          // add needed logic for the added fields for authenticated library state
           return of({
             type: 'authenticated' as const,
           })
