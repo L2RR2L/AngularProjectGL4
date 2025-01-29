@@ -43,4 +43,5 @@ export const API = {
   AddVideoToHistory: () => `/api/history/save`,
   GetLibrary: () => `/api/playlist`,
   GetLibraryVideos: (libraryId: string) => `/api/playlist/${libraryId}`,
+  CreateLibrary: () => `/api/playlist`,
 };
