@@ -57,4 +57,15 @@ export class LibraryService extends SideNavOptionService {
       body: { playlistId: libraryId },
     });
   }
+
+  addVideoToLibrary(libraryId: string, videoId: string): Observable<any> {
+    console.log(libraryId, videoId);
+
+    return this.http
+      .post<any>(API.LibraryAddVideo(), {
+        playlistId: libraryId,
+        videoId: videoId,
+      })
+      .pipe(map((data) => data.message));
+  }
 }
