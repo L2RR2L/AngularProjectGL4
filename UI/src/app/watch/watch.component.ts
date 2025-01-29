@@ -1,19 +1,13 @@
 import {
   Component,
-  effect,
-  OnInit,
   signal,
-  Signal,
-  untracked,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VideoContentComponent } from '../video-content/video-content.component';
-import { map, Observable, tap } from 'rxjs';
 import { VideoService } from '../services/video/video.service';
 import { Video } from '../types/video';
 import { CommentsComponent } from '../components/comments/comments.component';
 import { VideosComponent } from '../pages/trending-page/videos/videos.component';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { HistoryService } from '../services/side-nav-options/history/history.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/app.state';
@@ -24,7 +18,6 @@ import { selectIsAuthenticatedAndLoaded } from '../store/auth/auth.selectors';
   standalone: true,
   imports: [
     VideoContentComponent,
-    AsyncPipe,
     CommentsComponent,
     VideosComponent,
   ],
