@@ -17,13 +17,25 @@ const methods = (historySchema) => {
   historySchema.statics.getWatchHistory = async function (userId) {
     const History = this;
     try {
-      const history = await History.find({ userId })
+      const histories = await History.find({ userId })
         .populate("video")
-        .sort({ watchedAt: -1 });
-      return history.map((item) => ({
-        ...history,
-        video: extractVideoInfo(item.video),
+        .populate({
+          path: "video",
+          populate: {
+            path: "uploader",
+            model: "Channel",
+          },
+        })
+        .sort({ watchedAt: -1 })
+        .exec();
+      console.log("histories", histories);
+      const historiesWithVideos = histories.map((history) => ({
+        ...history.toObject(),
+        video: extractVideoInfo(history.video),
       }));
+      console.log("historiesWithVideos", historiesWithVideos);
+
+      return historiesWithVideos;
     } catch (err) {
       throw err;
     }
