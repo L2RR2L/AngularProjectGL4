@@ -12,17 +12,24 @@ import { AsyncPipe } from '@angular/common';
 import { Library } from '../../types/library';
 import { LibraryComponent } from '../../components/library/library.component';
 import { Router } from '@angular/router';
+import { CreateLibraryModalComponent } from '../../components/create-library-modal/create-library-modal.component';
 
 @Component({
   selector: 'app-library-page',
   standalone: true,
-  imports: [SignInButtonComponent, AsyncPipe, LibraryComponent],
+  imports: [
+    SignInButtonComponent,
+    AsyncPipe,
+    LibraryComponent,
+    CreateLibraryModalComponent,
+  ],
   templateUrl: './library-page.component.html',
   styleUrl: './library-page.component.css',
 })
 export class LibraryPageComponent implements OnInit {
   state$: Observable<LibraryState>;
   libraries: Library[] = [];
+  showModal: boolean = false;
 
   constructor(
     private store: Store<AppState>,
@@ -85,5 +92,20 @@ export class LibraryPageComponent implements OnInit {
         this.router.navigate(['/library', library._id]);
       }
     }
+  }
+
+  openModal() {
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
+  }
+
+  createLibrary(libraryName: string) {
+    this.libraryService.createLibrary(libraryName).subscribe((library) => {
+      this.libraries.push(library);
+    });
+    this.closeModal();
   }
 }

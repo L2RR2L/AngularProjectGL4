@@ -6,6 +6,7 @@ const methods = (playlistSchema) => {
     try {
       const playlist = new Playlist({ name, userId });
       await playlist.save();
+      return playlist;
     } catch (err) {
       throw err;
     }
@@ -85,7 +86,6 @@ const methods = (playlistSchema) => {
       if (playlist.userId.toString() !== userId) {
         throw new Error("Unauthorized");
       }
-      console.log(playlist.videos);
 
       return playlist.videos.map((video) => extractVideoInfo(video));
     } catch (err) {

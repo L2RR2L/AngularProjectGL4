@@ -47,4 +47,8 @@ export class LibraryService extends SideNavOptionService {
       .get<Library[]>(API.GetLibrary())
       .pipe(map((data) => data.map((library) => library)));
   }
+
+  createLibrary(libraryName: string): Observable<Library> {
+    return this.http.post<Library>(API.CreateLibrary(), { name: libraryName });
+  }
 }
