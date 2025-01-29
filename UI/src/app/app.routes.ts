@@ -9,14 +9,21 @@ export const routes: Routes = [
   ...sideNavRoutes,
   {
     path: 'watch',
-    component: WatchComponent,
+    loadComponent: () =>
+      import('./watch/watch.component').then((m) => m.WatchComponent),
   },
   {
     path: 'channel/:id',
-    component: ChannelPageComponent,
+    loadComponent: () =>
+      import('./pages/channel-page/channel-page.component').then(
+        (m) => m.ChannelPageComponent
+      ),
   },
   {
     path: 'videos/search/:search_query',
-    component: SearchResultPageComponent,
+    loadComponent: () =>
+      import('./pages/search-result-page/search-result-page.component').then(
+        (m) => m.SearchResultPageComponent
+      ),
   },
 ];

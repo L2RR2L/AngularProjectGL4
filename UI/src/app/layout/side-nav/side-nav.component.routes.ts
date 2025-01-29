@@ -13,27 +13,42 @@ export const sideNavRoutes: Routes = [
   },
   {
     path: 'subscriptions',
-    component: SubscriptionComponent,
+    loadComponent: () =>
+      import('../../pages/subscription/subscription.component').then(
+        (m) => m.SubscriptionComponent
+      ),
   },
   {
     path: 'trending',
-    component: TrendingPageComponent,
+    loadComponent: () =>
+      import('../../pages/trending-page/trending-page.component').then(
+        (m) => m.TrendingPageComponent
+      ),
   },
   {
     path: 'library',
     children: [
       {
         path: '',
-        component: LibraryPageComponent,
+        loadComponent: () =>
+          import('../../pages/library-page/library-page.component').then(
+            (m) => m.LibraryPageComponent
+          ),
       },
       {
         path: ':libraryId',
-        component: LibraryVideosComponent,
+        loadComponent: () =>
+          import('../../pages/library-videos/library-videos.component').then(
+            (m) => m.LibraryVideosComponent
+          ),
       },
     ],
   },
   {
     path: 'history',
-    component: HistoryPageComponent,
+    loadComponent: () =>
+      import('../../pages/history-page/history-page.component').then(
+        (m) => m.HistoryPageComponent
+      ),
   },
 ];
