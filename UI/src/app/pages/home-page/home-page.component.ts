@@ -22,6 +22,7 @@ export class HomePageComponent implements OnInit {
     this.homeService.getRecommendedVideos().subscribe({
       next: (videos) => {
         this.recommendedVideos = videos;
+        console.log('videso', videos);
         this.isLoadingRecommendedVideos = false;
       },
       error: (error) => {

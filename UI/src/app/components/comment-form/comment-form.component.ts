@@ -43,8 +43,6 @@ export class CommentFormComponent {
   }
 
   handleSubmit() {
-    console.log(this.isAuthenticated());
-
     if (!this.isAuthenticated()) {
       this.toast.info('You need to be logged in to comment');
       this.comment = '';
@@ -57,7 +55,6 @@ export class CommentFormComponent {
       this.commentTo() == '' ? undefined : this.commentTo();
     newCommentBody.videoId = this.videoId();
     newCommentBody.commentBy = this.currentChannel()?.id;
-    console.log(newCommentBody);
     this.commentService.createVideoComments(newCommentBody);
     this.submitted.emit(true);
     this.comment = '';

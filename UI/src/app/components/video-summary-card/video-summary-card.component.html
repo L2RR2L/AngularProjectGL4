@@ -1,13 +1,9 @@
-<div class="p-4 mx-auto w-96">
+<div class="p-4 mx-auto w-96" appDataVideoId="{{ video().id }}">
   <app-thumbnail [video]="video()"></app-thumbnail>
 
   <div class="flex items-start mt-4">
     <a [routerLink]="['/channel', video().channelId]">
-      <img
-        [src]="video().channelImg"
-        alt="{{ video().channelName }}"
-        class="w-12 h-12 rounded-full mr-4"
-      />
+      <img [src]="video().channelImg" alt="{{ video().channelName }}" class="w-12 h-12 rounded-full mr-4" />
     </a>
     <div>
       <h2 class="text-lg font-semibold text-gray-900">{{ video().title }}</h2>
