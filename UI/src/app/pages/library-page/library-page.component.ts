@@ -83,7 +83,18 @@ export class LibraryPageComponent implements OnInit {
   onLibraryClick(event: Event) {
     const target = event.target as HTMLElement;
     const libraryElement = target.closest('[data-library-id]') as HTMLElement;
-    if (libraryElement) {
+    const deleteElement = target.closest(
+      '[data-library-id-delete]'
+    ) as HTMLElement;
+
+    if (deleteElement) {
+      const libraryId = deleteElement.getAttribute('data-library-id-delete');
+      this.libraryService.deleteLibrary(libraryId).subscribe(() => {
+        this.libraries = this.libraries.filter(
+          (library) => library._id !== libraryId
+        );
+      });
+    } else if (libraryElement) {
       const libraryId = libraryElement.getAttribute('data-library-id');
       const library = this.libraries.find(
         (library) => library._id === libraryId
