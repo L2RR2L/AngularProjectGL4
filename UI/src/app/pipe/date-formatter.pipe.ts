@@ -8,8 +8,6 @@ export class DateFormatterPipe implements PipeTransform {
   transform(value: Date | string | number, format: string = 'dd/MM/yyyy'): string {
     if (!value) return '';
 
-
-
     const date = new Date(value);
     if (isNaN(date.getTime())) return '';
 
