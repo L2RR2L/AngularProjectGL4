@@ -54,11 +54,7 @@ export class HistoryPageComponent implements OnInit {
     this.store.select(selectIsAuthenticated).subscribe((isAuthenticated) => {
       if (isAuthenticated) {
         this.historyService.getMyHistory().subscribe((history) => {
-          this.myHistory = history.map((h) => ({
-            ...h,
-            video: { ...h.video, id: (h.video as any)._id },
-          }));
-          console.log('this.myHistory', this.myHistory);
+          this.myHistory = history;
         });
       }
     });

@@ -1,7 +1,7 @@
 import { Video } from "./video";
 
 export interface History {
-  id: string;
+  _id: string;
   userId: string;
   video: Video;
   watchedAt: Date;
