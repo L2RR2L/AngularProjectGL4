@@ -49,11 +49,8 @@ export class VideoContentComponent implements OnChanges {
   constructor(
     protected videoService: VideoService,
     protected channelService: ChannelService
-  ) {
-    console.log(this.video());
-  }
+  ) {}
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.video());
     this.handleSubscriptionChange();
   }
 

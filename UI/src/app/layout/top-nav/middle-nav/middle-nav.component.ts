@@ -16,11 +16,20 @@ import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
 import { ClickOutsideDirective } from '../../../directives/click-outside/click-outside.directive';
 import { Writable } from 'node:stream';
+import { ClickVideosNavigateDirective } from '../../../directives/clickNavigate/click-videos-navigate.directive';
+import { NgClass } from '@angular/common';
+import { DataVideoIdDirective } from '../../../directives/clickNavigate/data-video-id.directive';
 
 @Component({
   selector: 'app-middle-nav',
   standalone: true,
-  imports: [SpinnerComponent, ClickOutsideDirective],
+  imports: [
+    SpinnerComponent,
+    ClickOutsideDirective,
+    NgClass,
+    ClickVideosNavigateDirective,
+    DataVideoIdDirective,
+  ],
   templateUrl: './middle-nav.component.html',
   styleUrl: './middle-nav.component.css',
 })
@@ -63,7 +72,9 @@ export class MiddleNavComponent {
       });
   }
 
-  handleSeeMore(): void {
+  handleSeeMore(e: MouseEvent): void {
+    e.stopPropagation();
+    console.log('here');
     this.loadingSearchingVideos = true;
     this.offset += this.VIDEOS_LIMIT;
     this.videoService
