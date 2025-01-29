@@ -19,12 +19,18 @@ const methods = (historySchema) => {
     try {
       const histories = await History.find({ userId })
         .populate("video")
+        .populate({
+          path: "video",
+          populate: {
+            path: "uploader",
+            model: "Channel",
+          },
+        })
         .sort({ watchedAt: -1 })
         .exec();
       console.log("histories", histories);
-
       const historiesWithVideos = histories.map((history) => ({
-        ...history,
+        ...history.toObject(),
         video: extractVideoInfo(history.video),
       }));
       console.log("historiesWithVideos", historiesWithVideos);
