@@ -19,7 +19,11 @@ export class SideNavComponent {
   sideNavOptions: Array<SideNavOption>;
   activeOption: string;
 
-  constructor(private store: Store<AppState>, private sideNavService: SideNavService, private router: Router) {
+  constructor(
+    private store: Store<AppState>,
+    private sideNavService: SideNavService,
+    private router: Router
+  ) {
     this.isDrawerOpen$ = this.store.select(
       (state) => state.layout.isDrawerOpen
     );
@@ -36,7 +40,6 @@ export class SideNavComponent {
   }
 
   onNavOptionSelect(option: SideNavOption): void {
-    console.log("clicked; ", option.path)
     this.router.navigate([option.path]);
   }
 }

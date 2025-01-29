@@ -64,7 +64,6 @@ export class VideoContentComponent implements OnChanges {
     console.log(this.video());
   }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.video());
     this.handleSubscriptionChange();
   }
 

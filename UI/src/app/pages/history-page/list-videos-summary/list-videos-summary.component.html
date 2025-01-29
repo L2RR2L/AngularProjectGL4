@@ -1,4 +1,4 @@
-<div class="flex flex-wrap">
+<div class="flex flex-wrap" appClickVideosNavigate>
   @if (isLoading()) {
   @for (item of skeletonArray; track $index) {
   <app-video-summary-card-skeleton />

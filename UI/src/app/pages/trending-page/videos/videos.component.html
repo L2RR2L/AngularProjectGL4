@@ -1,6 +1,6 @@
-<div class="space-y-6">
+<div class="space-y-6" appClickVideosNavigate>
   @for(video of videos(); track video.id) {
-  <div class="flex items-start space-x-4" [ngClass]="{ 'flex-col': under() }">
+  <div class="flex items-start space-x-4" [ngClass]="{ 'flex-col': under() }" appDataVideoId="{{ video.id }}">
     <app-thumbnail [width]="60" [video]="video"></app-thumbnail>
     <div class="">
       <div class="text-lg font-semibold">{{ video.title }}</div>
