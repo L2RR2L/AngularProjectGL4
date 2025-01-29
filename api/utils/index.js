@@ -19,7 +19,10 @@ const extractVideoInfo = (video, withDoc = false) => {
     }),
   };
   if (withDoc) videoResult.doc = video;
+
   if (video.uploader && !isId(video.uploader)) {
+    // console.log("entrer");
+
     videoResult = {
       ...videoResult,
       channelName: video.uploader.name || video.uploader[0].name,
