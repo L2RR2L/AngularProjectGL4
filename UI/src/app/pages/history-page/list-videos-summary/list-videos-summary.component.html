@@ -1,18 +1,22 @@
-<div class="flex flex-wrap">
+<div class="flex flex-wrap gap-4 p-4">
   @if (isLoading()) {
-  @for (item of skeletonArray; track $index) {
-  <app-video-summary-card-skeleton />
-  }
+  <div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    @for (item of skeletonArray; track $index) {
+    <app-video-summary-card-skeleton />
+    }
+  </div>
   } @else {
   @for (history of histories(); track history.id) {
-  <app-video-summary-card [video]="history.video" />
-  <div class="w-full h-1">
-    watched at {{ history.watchedAt }}
+  <div class="w-full sm:w-1/2 lg:w-1/3 p-2">
+    <app-video-summary-card [video]="history.video" class="shadow-md rounded-lg overflow-hidden" />
+    <div class="mt-2 text-sm text-gray-500 border-t border-gray-200 pt-2">
+      Watched at {{ history.watchedAt | dateFormatter }}
+    </div>
   </div>
   }
   @empty {
-  <div class="w-full flex items-center justify-center">
-    <p class="text-gray-400">No videos found</p>
+  <div class="w-full flex flex-col items-center justify-center p-6">
+    <p class="text-lg text-gray-500">No videos found</p>
   </div>
   }
   }

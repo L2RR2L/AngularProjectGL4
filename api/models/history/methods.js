@@ -20,7 +20,10 @@ const methods = (historySchema) => {
       const history = await History.find({ userId })
         .populate("video")
         .sort({ watchedAt: -1 });
-      return history;
+      return history.map((item) => ({
+        ...history,
+        video: extractVideoInfo(item.video),
+      }));
     } catch (err) {
       throw err;
     }
