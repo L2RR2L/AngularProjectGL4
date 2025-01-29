@@ -1,3 +1,4 @@
+const { model } = require("mongoose");
 const { extractVideoInfo } = require("../../utils");
 
 const methods = (playlistSchema) => {
@@ -82,10 +83,17 @@ const methods = (playlistSchema) => {
   }) {
     const Playlist = this;
     try {
-      const playlist = await Playlist.findById(playlistId).populate("videos");
+      const playlist = await Playlist.findById(playlistId).populate({
+        path: "videos",
+        populate: {
+          path: "uploader",
+          model: "Channel",
+        },
+      });
       if (playlist.userId.toString() !== userId) {
         throw new Error("Unauthorized");
       }
+      console.log(playlist.videos);
 
       return playlist.videos.map((video) => extractVideoInfo(video));
     } catch (err) {
