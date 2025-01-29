@@ -44,11 +44,17 @@ export class LibraryService extends SideNavOptionService {
 
   getLibraries(): Observable<Library[]> {
     return this.http
-      .get<Library[]>(API.GetLibrary())
+      .get<Library[]>(API.Library())
       .pipe(map((data) => data.map((library) => library)));
   }
 
   createLibrary(libraryName: string): Observable<Library> {
-    return this.http.post<Library>(API.CreateLibrary(), { name: libraryName });
+    return this.http.post<Library>(API.Library(), { name: libraryName });
+  }
+
+  deleteLibrary(libraryId: string | null): Observable<void> {
+    return this.http.delete<void>(API.Library(), {
+      body: { playlistId: libraryId },
+    });
   }
 }
