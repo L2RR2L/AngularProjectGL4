@@ -1,13 +1,18 @@
 <div class="space-y-6">
-    @for(video of videos(); track video.id)
-    {
-    <div class="flex items-start space-x-4">
-        <app-thumbnail [width]="60" [video]="video"></app-thumbnail>
-        <div>
-            <div class="text-lg font-semibold">{{ video.title }}</div>
-            <div class="text-sm text-gray-600">{{ video.channelName }} · {{ video.views }} views · {{ video.createdAt }}
-            </div>
-            <div class="text-sm text-gray-500">{{ video.description }}</div>
-        </div>
-    </div>}
+  @for(video of videos(); track video.id) {
+  <div class="flex items-start space-x-4" [ngClass]="{ 'flex-col': under() }">
+    <app-thumbnail [width]="60" [video]="video"></app-thumbnail>
+    <div class="">
+      <div class="text-lg font-semibold">{{ video.title }}</div>
+      <div class="text-sm text-gray-600 flex flex-col">
+        <div>{{ video.channelName }}</div>
+        <div>{{ video.views }} views</div>
+        <div>{{ video.createdAt }}</div>
+      </div>
+      <div class="text-sm text-gray-500 text-clip">
+        {{ video.description.slice(0, 20) }}
+      </div>
+    </div>
+  </div>
+  }
 </div>

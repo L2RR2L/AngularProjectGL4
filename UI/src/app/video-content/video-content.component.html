@@ -28,14 +28,27 @@
             </p>
           </div>
           <div class="flex items-center space-x-4">
-            <!-- LikeDislike Component -->
             <app-like-dislikes
               [type]="'video'"
               [id]="video().id"
               [videoId]="video().id"
               [showDislikes]="true"
             ></app-like-dislikes>
-            <!-- Subscribe Button Component -->
+            <button
+              appOnHoverClass="bg-[#f50057]"
+              class="bg-primaryFill text-white px-4 py-2 rounded disabled:opacity-50 uppercase transform transition-all duration-200"
+              (click)="openModal()"
+            >
+              <span class="mr-2">➕</span> Library
+            </button>
+
+            @if(showModal){
+            <app-add-video-library-modal
+              (close)="closeModal()"
+              (create)="addVideoToLibrary($event)"
+            ></app-add-video-library-modal>
+            }
+
             <app-subscribe-btn
               [channelId]="video().channelId"
               (subscriptionChange)="handleSubscriptionChange()"
